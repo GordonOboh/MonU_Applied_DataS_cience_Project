@@ -6,7 +6,8 @@ A machine learning project to identify the key features that influence rental pr
 
 ## Overview
 
-This project uses a dataset of ~385,000 Craigslist rental listings to build and compare three ensemble regression models. The goal is not just to predict price, but to understand **which property features drive pricing**, giving actionable insight for real estate stakeholders.
+[This project uses a dataset of ~385,000 Craigslist rental listings](https://www.kaggle.com/datasets/austinreese/usa-housing-listings) to build and compare three ensemble regression models. The goal is not just to predict price, but to understand **which property features drive pricing**, giving actionable insight for real estate stakeholders.
+
 
 ---
 
@@ -33,7 +34,7 @@ Raw Data → EDA → Cleaning → Feature Engineering → Modeling → Evaluatio
 
 ## Models & Results
 
-| Model | MAE | RMSE | R² |
+| **Model** | **MAE** | **RMSE** | **R²** |
 |---|---|---|---|
 | **Random Forest** | **$62.70** | **$137.80** | **0.922** |
 | XGBoost | $124.33 | $185.62 | 0.858 |
@@ -84,7 +85,7 @@ Across all three models, the top predictors of rental price were consistently:
 pip install -r requirements.txt
 ```
 
-Then open and run `Capstone.ipynb` in order.
+Then open and run `Capstone_Final.ipynb` in order.
 
 ---
 
