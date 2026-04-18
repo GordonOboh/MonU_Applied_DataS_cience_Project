@@ -30,9 +30,20 @@ Raw Data → EDA → Cleaning → Feature Engineering → Modeling → Evaluatio
 3. **Feature Engineering** — K-Means location clustering (125 clusters), target encoding for categorical features
 4. **Modeling** — Three ensemble regressors trained on an 80/20 split (290,224 train / 72,557 test)
 
+<p align="center">
+  <img src="charts/Housing Listing Locations, Not Cleaned.png" width="48%" alt="Listings before cleaning"/>
+  <img src="charts/Housing Listing Locations, Cleaned.png" width="48%" alt="Listings after cleaning"/>
+</p>
+<p align="center">
+  <img src="charts/Pearson Correlation with Price.png" width="48%" alt="Pearson Correlation"/>
+  <img src="charts/Spearman Correlation with Price.png" width="48%" alt="Spearman Correlation"/>
+</p>
+
 ---
 
 ## Models & Results
+
+> Full metrics: [`KPM/model_performance_metrics.csv`](./KPM/model_performance_metrics.csv)
 
 | **Model** | **MAE** | **RMSE** | **R²** |
 |---|---|---|---|
@@ -41,6 +52,12 @@ Raw Data → EDA → Cleaning → Feature Engineering → Modeling → Evaluatio
 | Gradient Boosting | $150.68 | $221.11 | 0.799 |
 
 Random Forest achieved the best performance with an **R² of 0.922**, meaning it explains ~92% of the variance in rental prices.
+
+<p align="center">
+  <img src="charts/R2 by Model.png" width="32%" alt="R² by Model"/>
+  <img src="charts/MAE by Model.png" width="32%" alt="MAE by Model"/>
+  <img src="charts/RMSE by Model.png" width="32%" alt="RMSE by Model"/>
+</p>
 
 ---
 
@@ -52,6 +69,20 @@ Across all three models, the top predictors of rental price were consistently:
 - **Square footage**
 - **Number of bedrooms and bathrooms**
 - **Property type**
+
+<p align="center">
+  <img src="charts/Random Forest Feature Importance (Top 4).png" width="32%" alt="RF Feature Importance"/>
+  <img src="charts/Gradient Boosting Feature Importance (Top 4).png" width="32%" alt="GB Feature Importance"/>
+  <img src="charts/XGBoost Feature Importance (Top 4).png" width="32%" alt="XGB Feature Importance"/>
+</p>
+
+### Observed vs Predicted
+
+<p align="center">
+  <img src="charts/Random Forest: Observed vs Predicted.png" width="32%" alt="RF Observed vs Predicted"/>
+  <img src="charts/Gradient Boosting: Observed vs Predicted.png" width="32%" alt="GB Observed vs Predicted"/>
+  <img src="charts/XGBoost: Observed vs Predicted.png" width="32%" alt="XGB Observed vs Predicted"/>
+</p>
 
 ---
 
@@ -70,9 +101,12 @@ Across all three models, the top predictors of rental price were consistently:
 ## Project Structure
 
 ```
-├── Capstone.ipynb                          # Full analysis notebook
+├── Capstone_Final.ipynb                    # Full analysis notebook
 ├── CS703_Applied_Data_Science_report.pdf   # Project report
 ├── housing_resized.csv                     # Dataset
+├── charts/                                 # Generated plots
+├── KPM/
+│   └── model_performance_metrics.csv       # Model metrics
 ├── requirements.txt                        # Dependencies
 └── README.md
 ```
