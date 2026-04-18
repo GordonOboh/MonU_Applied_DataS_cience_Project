@@ -1,5 +1,9 @@
 # U.S. Housing Price Feature Analysis
 
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green)
+[![Report](https://img.shields.io/badge/report-PDF-red?logo=adobeacrobatreader&logoColor=white)](https://github.com/GordonOboh/MonU_Applied_DataS_cience_Project/blob/main/CS703_Applied_Data_Science_report.pdf)
+
 A machine learning project to identify the key features that influence rental property pricing across the United States — covering CONUS, Alaska, and Hawaii.
 
 ---
