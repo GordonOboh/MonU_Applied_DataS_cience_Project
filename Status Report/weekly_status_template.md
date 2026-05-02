@@ -4,9 +4,26 @@
 
 ---
 
+> [!NOTE]
+> **BEFORE YOU START EACH WEEK**
+> 1. Make a copy of `CS703 - Weekly Status Report Template.pptx`
+> 2. Rename the copy to `CS703 - Week[X] Status Report.pptx` (e.g., `CS703 - Week1 Status Report.pptx`)
+> 3. Fill in the renamed copy — never edit the original template directly
+
+---
+
+> [!IMPORTANT]
+> **BULLET POINT HIERARCHY — ALWAYS ENFORCE**
+> - Level 0: Main items (task names, phase headers, section headers: Issues/Risks/Concerns)
+> - Level 1: Sub-items (status, dates, descriptions, mitigation notes)
+> - Level 2: Further detail under a Level 1 item (e.g., sub-note under a date, clarification under a description)
+> - Up to 3 levels maximum. Never mix levels out of order. Every item sits under its logical parent.
+
+---
+
 ## SLIDE 1 — Title
 - **Project Name:** Predictive Pricing Analysis for The USA Housing Market
-- **Week Ending:** [Friday date]
+- **Week Ending:** [Friday date — e.g., May 9, 2026]
 - **Submitted by:** Gordon Oboh
 - **Submit Date:** [Saturday date, or actual date if late]
 
@@ -30,79 +47,88 @@
   - YELLOW = generally on plan, potential issues exist
   - RED = not on plan, issues impacting project
 
-- **Major Item Completed (if any):**
-  - [Task name]
-  - Original Start: [date] | Revised Start: N/A | Actual Start: [date]
-  - Original End: [date] | Revised End: N/A | Actual End: [date]
+**For each major item (completed or in progress):**
+- [Task name] — Level 0
+  - Original Start: [date] | Revised Start: N/A | Actual Start: [date] — Level 1
+  - Original End:   [date] | Revised End:   N/A | Actual End:   [date or N/A] — Level 1
+  - [Short status note] — Level 1
 
-- **Summary:** [e.g., "All items on plan and on budget. No major issues."]
-- **If YELLOW/RED:** [Short explanation of why + mitigation plan]
+- **If YELLOW/RED:** Include short explanation + mitigation on this slide
 
 ---
 
 ## SLIDE 4 — Items Completed This Week
-> Only tasks FULLY completed THIS week (not a running list)
+> Only tasks FULLY completed THIS week (not a running list). If nothing completed: "Per plan, no items completed this week."
 
-### [Task Name]
-- Status: GREEN (100% complete)
-- Original Start: [date] | Revised Start: N/A | Actual Start: [date]
-- Original End: [date] | Revised End: N/A | Actual End: [date]
-- Description: [1-2 sentences on what was completed]
-- If late: [Explanation of why]
+- [Task Name] — Level 0
+  - Task is GREEN — 100% complete — Level 1
+  - Original Start: [date] | Revised Start: N/A | Actual Start: [date] — Level 1
+  - Original End:   [date] | Revised End:   N/A | Actual End:   [date] — Level 1
+  - [1-2 sentence description of what was completed] — Level 1
+  - If late: [Explanation of why] — Level 1
 
 ---
 
 ## SLIDE 5 — Items In Progress
-> Always have something in progress
+> Always have something in progress.
 
-### [Task Name]
-- Status: [GREEN / YELLOW / RED] — [X]% complete
-- Original Start: [date] | Revised Start: N/A | Actual Start: [date]
-- Original End: [date] | Revised End: N/A | Actual End: N/A ← (no actual end while in progress)
-- Notes/Issues: [Why yellow/red + mitigation if applicable]
+- [Task Name] — Level 0
+  - Task is [GREEN / YELLOW / RED] — [X]% complete — Level 1
+  - Original Start: [date] | Revised Start: N/A | Actual Start: [date] — Level 1
+  - Original End:   [date] | Revised End:   N/A | Actual End:   N/A (no actual end while in progress) — Level 1
+  - [Notes, issues, mitigation if yellow/red] — Level 1
 
 ---
 
 ## SLIDE 6 — Items To Be Started
-> Always show 2-3 upcoming tasks
+> Always show 2-3 upcoming items. Scope to subsections of current CRISP-DM phase AND the next CRISP-DM phase.
+> Example: currently in 1.0 Business Understanding, list 1.1, 1.2 subsections + 2.0 Data Understanding.
 
-### [Task Name]
-- Original Start: [date] | Revised Start: N/A | Actual Start: N/A
-- Original End: [date] | Revised End: N/A | Actual End: N/A
+- [Subsection or next CRISP-DM phase] — Level 0
+  - Original Start: [date] | Revised Start: N/A | Actual Start: N/A — Level 1
+  - Original End:   [date] | Revised End:   N/A | Actual End:   N/A — Level 1
 
-### [Task Name]
-- Original Start: [date] | Revised Start: N/A | Actual Start: N/A
-- Original End: [date] | Revised End: N/A | Actual End: N/A
+- [Subsection or next CRISP-DM phase] — Level 0
+  - Original Start: [date] | Revised Start: N/A | Actual Start: N/A — Level 1
+  - Original End:   [date] | Revised End:   N/A | Actual End:   N/A — Level 1
 
 ---
 
 ## SLIDE 7 — Sample of Items Completed This Week
-- **What:** [Name of item/artifact being shown]
-- **Why showing it:** [1-2 sentences on significance]
-- **Content:** [Paste excerpt, screenshot link, or attach artifact — no login required]
+> Show 1 significant artifact from this week. Options: image, code snippet, table, document excerpt.
+> Do NOT show 20 pages — show a representative section. No login-required links.
+
+- **What:** [Name of artifact]
+- **Why:** [1-2 sentences on significance]
+- **Content:** [Image / code block / table / excerpt]
 
 ---
 
 ## SLIDE 8 — Issues, Risks, Concerns
-> Issues = real/happened | Risks = potential future | Concerns = external, out of control
+> Issues = real/already happened | Risks = potential future | Concerns = external, out of control
+> If none: write "None at this time" under each header.
 
-**Issues:**
-- [Issue + impact + mitigation] — or: None
-
-**Risks:**
-- [Risk + impact + mitigation] — or: None
-
-**Concerns:**
-- [Concern + impact + mitigation] — or: None
+- Issues — Level 0
+  - [Issue + impact + mitigation, or: None at this time] — Level 1
+- Risks — Level 0
+  - [Risk + impact + mitigation, or: None at this time] — Level 1
+- Concerns — Level 0
+  - [Concern + impact + mitigation, or: None at this time] — Level 1
 
 ---
 
 ## SLIDE 9 — Next Steps
-> Items continuing, starting soon, or research needed
+> Scope to current CRISP-DM section (subsections) + next CRISP-DM section only.
 
-- [Task/action] — Original Start: [date] | Revised: N/A | Actual: N/A | Original End: [date]
-- [Task/action] — Original Start: [date] | Revised: N/A | Actual: N/A | Original End: [date]
-- [Task/action] — Original Start: [date] | Revised: N/A | Actual: N/A | Original End: [date]
+- [Current phase or subsection continuing] — Level 0
+  - Original Start: [date] | Revised: N/A | Actual Start: [date] — Level 1
+  - Original End:   [date] | Revised: N/A | Actual End:   N/A — Level 1
+- [Next subsection] — Level 0
+  - Original Start: [date] | Revised: N/A | Actual Start: N/A — Level 1
+  - Original End:   [date] | Revised: N/A | Actual End:   N/A — Level 1
+- [Next CRISP-DM phase] — Level 0
+  - Original Start: [date] | Revised: N/A | Actual Start: N/A — Level 1
+  - Original End:   [date] | Revised: N/A | Actual End:   N/A — Level 1
 
 ---
 
@@ -119,4 +145,18 @@
 | Original Start/End | Set when plan approved | Never |
 | Actual Start/End | When task actually starts/ends | Only for started/completed tasks |
 | Revised Start/End | Major plan change (needs Prof approval) | Rarely — not for poor planning |
-| N/A | No actual or revised date yet | Use as placeholder |
+| N/A | No actual or revised date yet | Use as placeholder always |
+
+## CRISP-DM Phase Reference
+| Phase | Description |
+|-------|------------|
+| 1.0 Business Understanding | Define business problem, objectives, project plan |
+| 1.1 Determine Business Objectives | |
+| 1.2 Assess Situation | |
+| 1.3 Determine Data Mining Goals | |
+| 1.4 Produce Project Plan | |
+| 2.0 Data Understanding | Collect, explore, verify data |
+| 3.0 Data Preparation | Clean, transform, engineer features |
+| 4.0 Modeling | Build and tune models |
+| 5.0 Evaluation | Assess results against business goals |
+| 6.0 Deployment | Deliver findings and documentation |
