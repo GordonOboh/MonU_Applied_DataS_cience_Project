@@ -1,3 +1,13 @@
 venv/
 .claude/
-test.ipynb
+test.*
+
+Weekly Report/*.aux
+Weekly Report/*.bcf
+Weekly Report/*.fdb_latexmk
+Weekly Report/*.fls
+Weekly Report/*.log
+Weekly Report/*.out
+Weekly Report/*.run.xml
+Weekly Report/*.synctex.gz
+
