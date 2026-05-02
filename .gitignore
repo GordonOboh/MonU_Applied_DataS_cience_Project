@@ -3,7 +3,7 @@ venv/
 test.*
 
 Weekly Report/*.aux
-Weekly Report/*.bcf
+Weekly Report/*.bcf*
 Weekly Report/*.fdb_latexmk
 Weekly Report/*.fls
 Weekly Report/*.log
