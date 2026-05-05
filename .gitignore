@@ -1,6 +1,10 @@
 venv/
+.venv/
 !.claude/
 test.*
+
+*.pdf
+Weekly Report/CS703.pdf
 
 Weekly Report/*.aux
 Weekly Report/*.bcf*
@@ -10,4 +14,6 @@ Weekly Report/*.log
 Weekly Report/*.out
 Weekly Report/*.run.xml
 Weekly Report/*.synctex.gz
+Weekly Report/*.bbl
+Weekly Report/*.blg
 
