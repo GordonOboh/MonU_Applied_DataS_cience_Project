@@ -156,8 +156,17 @@ Then place `bibliography.bib` in `Weekly Report/` folder.
 | PDF won't compile | Check for em dashes (`—`) in .tex files, replace with `,`, `:`, or `()` |
 | Bibliography not showing | Uncomment `\addbibresource{}` in preamble.tex |
 
+## ⚠️ CRITICAL: Master Branch Rule
+
+**NEVER interact with `master` branch.** Not checkout, not merge, not push. Ignore it completely.
+
+Only work on `new` branch.
+
+---
+
 ## Quick Start for New Agent
 
+0. **Checkout `new` branch:** `git checkout new` (NEVER touch `master`)
 1. Install LaTeX distribution
 2. Install LaTeX Workshop extension in VSCode
 3. Copy VSCode config: `cp /home/cc/.vscode/settings.json .vscode/`

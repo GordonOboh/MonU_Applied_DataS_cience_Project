@@ -1,5 +1,7 @@
 # New Agents Onboarding
 
+⚠️ **READ THIS FIRST:** [MASTER_BRANCH_RULE.md](MASTER_BRANCH_RULE.md) — Critical git restriction
+
 Welcome! This directory contains setup guides and configs for new agents working on this project.
 
 ## LaTeX Setup
@@ -22,6 +24,31 @@ This script:
 | `vscode-settings.json` | VSCode config for LaTeX (auto-copied by setup script) |
 | `setup-latex.sh` | Automated setup script |
 | `README.md` | This file |
+
+## Git Branch
+
+### ⚠️ CRITICAL: Never interact with `master` branch
+
+- **ONLY work on `new` branch**
+- Never checkout `master`
+- Never merge to/from `master`
+- Never push to `master`
+- Never create PRs to/from `master`
+- Ignore `master` completely
+
+```bash
+git checkout new
+```
+
+Verify correct branch:
+```bash
+git branch  # should show * new
+```
+
+If you accidentally checkout `master`, immediately return to `new`:
+```bash
+git checkout new
+```
 
 ## What You Need to Know
 

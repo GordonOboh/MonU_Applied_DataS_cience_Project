@@ -7,6 +7,24 @@ set -e
 echo "=== MonU Data Science Project - LaTeX Setup ==="
 echo ""
 
+# Ensure on correct branch (NEVER master)
+echo "Checking git branch..."
+CURRENT_BRANCH=$(git branch --show-current)
+if [ "$CURRENT_BRANCH" = "master" ] || [ "$CURRENT_BRANCH" = "main" ]; then
+    echo "ERROR: You are on $CURRENT_BRANCH branch!"
+    echo "NEVER interact with master/main branch."
+    echo "Switching to 'new' branch now..."
+    git checkout new
+    echo "✓ Switched to 'new' branch. NEVER checkout master again."
+elif [ "$CURRENT_BRANCH" != "new" ]; then
+    echo "WARNING: You are on '$CURRENT_BRANCH' branch, not 'new'."
+    echo "Switching to 'new' branch..."
+    git checkout new
+else
+    echo "✓ Correctly on 'new' branch"
+fi
+echo ""
+
 # Detect OS
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     OS="linux"
