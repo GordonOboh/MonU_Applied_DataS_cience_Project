@@ -1,0 +1,55 @@
+{
+  "[latex]": {
+    "editor.defaultFormatter": "James-Yu.latex-workshop",
+    "editor.formatOnSave": true
+  },
+  "latex-workshop.latex.autoBuild.run": "onFileChange",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "pdflatex",
+      "command": "pdflatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ],
+      "env": {}
+    },
+    {
+      "name": "biber",
+      "command": "biber",
+      "args": ["%DOCFILE%"],
+      "env": {}
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "pdflatex → biber → pdflatex × 2",
+      "tools": ["pdflatex", "biber", "pdflatex", "pdflatex"]
+    },
+    {
+      "name": "pdflatex",
+      "tools": ["pdflatex"]
+    }
+  ],
+  "latex-workshop.view.pdf.viewer": "browser",
+  "latex-workshop.view.pdf.zoom": "page-fit",
+  "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.message.error.show": true,
+  "latex-workshop.message.warning.show": true,
+  "latex-workshop.linting.chktex.enabled": false,
+  "editor.wordWrap": "on",
+  "files.exclude": {
+    "**/*.aux": true,
+    "**/*.bbl": true,
+    "**/*.blg": true,
+    "**/*.fdb_latexmk": true,
+    "**/*.fls": true,
+    "**/*.log": true,
+    "**/*.out": true,
+    "**/*.synctex.gz": true,
+    "**/*.bcf": true,
+    "**/*.run.xml": true
+  }
+}
