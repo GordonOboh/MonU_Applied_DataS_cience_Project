@@ -1,0 +1,23 @@
+LaTeX Workshop Installation
+
+LaTeX Workshop is a VSCode extension that provides LaTeX compilation and an internal PDF viewer.
+
+Installation Methods:
+
+Option 1 — Via VSCode UI:
+1. Open Extensions sidebar (Ctrl+Shift+X)
+2. Search "LaTeX Workshop"
+3. Click Install
+
+Option 2 — Command line:
+code --install-extension James-Yu.latex-workshop
+
+Option 3 — Remote server (SSH/Remote):
+Same steps in remote VSCode window. Install happens on remote machine automatically.
+
+After Installation:
+- Open .tex file
+- Right-click → "View PDF" or Ctrl+Alt+V
+- PDF renders in sidebar
+
+Extension ID: James-Yu.latex-workshop
