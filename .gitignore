@@ -17,3 +17,5 @@ Weekly Report/*.synctex.gz
 Weekly Report/*.bbl
 Weekly Report/*.blg
 
+generate_status_report.py
+*pptx
