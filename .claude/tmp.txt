@@ -6,3 +6,5 @@ echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/apt-get" | sudo tee /etc/sudoers.d/clau
 sudo rm /etc/sudoers.d/claude-apt
 
 dsd --resume de2678f8-9d85-4763-a602-386b99a30477
+
+clauded --resume 216e3276-e084-49ae-98a1-10ec5b3acd6e
