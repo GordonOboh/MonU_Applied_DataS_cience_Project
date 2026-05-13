@@ -25,7 +25,7 @@
 - **Project Name:** Housing Amenities Impact on Apartment Listing Prices in the Southern USA
 - **Week Ending:** Week 1
 - **Submitted by:** Gordon Oboh
-- **Submit Date:** 9 May 2026
+- **Submit Date:** 8 May 2026
 
 ---
 
@@ -61,25 +61,25 @@
 > Only tasks FULLY completed THIS week (not a running list). If nothing completed: "Per plan, no items completed this week."
 
 - DS Project Proposal Revision — Level 0
-  - Task is GREEN — content complete, PDF deliverable pending — Level 1
+  - Task is GREEN — 100% complete — Level 1
   - Original Start: 2 May 2026 | Revised Start: N/A | Actual Start: 2 May 2026 — Level 1
   - Original End:   9 May 2026 | Revised End:   N/A | Actual End: 9 May 2026 — Level 1
-  - PDF documentation not yet started — Level 1
+  - Content completed and professor-approved. PDF documentation to be submitted. — Level 1
 
 - Task 1.1: Determine Business Objectives — Deliverable: Project Scope Document Part 1 — Level 0
-  - Task is GREEN — complete — Level 1
+  - Task is GREEN — 100% complete — Level 1
   - Original Start: 2 May 2026 | Revised Start: N/A | Actual Start: 2 May 2026 — Level 1
   - Original End:   9 May 2026 | Revised End:   N/A | Actual End: 7 May 2026 — Level 1
   - Business objectives defined: analyze amenity impact on Southern USA apartment rental pricing — Level 1
 
 - Task 1.2: Assess the Situation — Deliverable: Project Scope Document Part 2 — Level 0
-  - Task is GREEN — complete — Level 1
+  - Task is GREEN — 100% complete — Level 1
   - Original Start: 2 May 2026 | Revised Start: N/A | Actual Start: 2 May 2026 — Level 1
   - Original End:   9 May 2026 | Revised End:   N/A | Actual End: 7 May 2026 — Level 1
   - Data sources identified (Zillow, Apartments.com, regional MLS); geographic scope set to 6 Southern cities — Level 1
 
 - Task 1.3: Determine Data-Mining Goals — Deliverable: Data-Mining Scope Document — Level 0
-  - Task is GREEN — complete — Level 1
+  - Task is GREEN — 100% complete — Level 1
   - Original Start: 2 May 2026 | Revised Start: N/A | Actual Start: 2 May 2026 — Level 1
   - Original End:   9 May 2026 | Revised End:   N/A | Actual End: 7 May 2026 — Level 1
   - Data-mining goal: identify amenity features with strongest predictive power on apartment rental price — Level 1
@@ -90,7 +90,7 @@
 > Always have something in progress.
 
 - Task 1.4: Produce a Project Plan — Deliverable: Data Mining Project/Resource Plan — Level 0
-  - Task is GREEN — in progress — Level 1
+  - Task is GREEN — 75% complete — Level 1
   - Original Start: 2 May 2026 | Revised Start: N/A | Actual Start: 7 May 2026 — Level 1
   - Original End:   9 May 2026 | Revised End:   N/A | Actual End: N/A — Level 1
   - Plan requires full CRISP-DM timeline build-out — Level 1
@@ -114,12 +114,25 @@
 ## SLIDE 7 — Sample of Items Completed This Week
 > Show 1 significant artifact from this week. Options: image, code snippet, table, document excerpt.
 
-- **What:** Project Proposal — Phase 1 (Phase_1.tex)
-- **Why:** Defines project scope and received professor approval, establishing foundation for all subsequent CRISP-DM phases.
+- **What:** Business Objectives and Success Criteria — excerpt from Task 1.1 (Project Scope Document Part 1)
+- **Why:** These objectives define the entire project direction. They were reviewed and approved by Professor Nardi, and every subsequent CRISP-DM phase (data collection, modeling, evaluation) traces back to these goals. Showing the actual document proves the Business Understanding phase was completed with specific, measurable outcomes — not just generic descriptions.
 - **Content:**
-  > *Project 1: Housing Amenities Impact on Apartment Listing Prices in the Southern USA*
+
+  > **Business Objectives**
   >
-  > Real estate investors and property managers in the Southern USA lack quantitative evidence on which amenities drive rental pricing for apartments. This project analyzes apartment listings and determines which amenities (parking, laundry, pet policies, fitness center, etc.) most significantly influence rental prices in Southern markets: Austin TX, Dallas TX, Miami FL, Atlanta GA, Nashville TN, and Charlotte NC.
+  > Support real estate investors and property managers in the Southern USA by identifying which apartment amenities most significantly influence rental price.
+  >
+  > *Target Audience:* Real estate investors seeking to maximize return on amenity upgrades; property managers aiming to set competitive rental prices relative to local Southern market conditions.
+  >
+  > **Business Questions**
+  > - Which amenities have the strongest impact on rental pricing?
+  > - How does amenity importance vary across geographic regions?
+  > - Which amenity upgrades yield the highest price premium relative to cost?
+  > - Do certain amenity bundles (e.g., parking and laundry) have compounding effects on price?
+  >
+  > **Success Criteria**
+  >
+  > The project succeeds when a model can identify the top amenity drivers of rental price, producing rankings that are actionable for renovation prioritization and pricing strategy in Southern apartment markets.
 
 ---
 
@@ -130,14 +143,11 @@
   - None at this time — Level 1
 
 - Risks — Level 0
-  - Geographic scope initially too broad — Level 1
-    - Impact: analysis would lack regional specificity, reducing actionability — Level 2
-    - Mitigation: narrowed focus to 6 Southern cities (Austin TX, Dallas TX, Miami FL, Atlanta GA, Nashville TN, Charlotte NC) per professor feedback — Level 2
-    - Professor feedback: "you are going to have to narrow this down to some specific geography or type...what drives prices in an apartment in Chicago is vastly differently than what drives prices in Kansas City" — Level 2
+  - None at this time — Level 1
 
 - Concerns — Level 0
   - Identifying suitable data sources for Southern USA apartment listings — Level 1
-    - Impact: inability to find quality data could delay or limit analysis scope — Level 2
+    <--! - Impact: inability to find quality data could delay or limit analysis scope — Level 2 -->
     - Mitigation: actively evaluating available options before data collection phase begins — Level 2
 
 ---
@@ -170,7 +180,7 @@
 ## SLIDE 10 — Personal Reflection
 > Thoughts and feelings — NOT an activity log. ~1 paragraph. Only you and Professor Nardi see this.
 
-[Write freely: how you feel the project is going, what surprised you, concerns, insights, confidence level, etc.]
+Getting the proposal approved this week was a relief — I was glad Professor Nardi confirmed the housing amenities topic so I can move forward with the analysis I've been planning. The LaTeX and Python environment setup took longer than expected, but having everything working now gives me confidence the technical side is ready for the data collection phase.
 
 ---
 
