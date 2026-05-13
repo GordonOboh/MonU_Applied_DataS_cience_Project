@@ -1,0 +1,241 @@
+{
+  "runs": [
+    {
+      "run": 1,
+      "note": "Initial tuned params for Southern states subset",
+      "params": {
+        "Random Forest": {
+          "n_estimators": 300,
+          "max_depth": 20,
+          "min_samples_leaf": 5,
+          "max_features": "sqrt",
+          "n_jobs": -1
+        },
+        "Gradient Boosting": {
+          "n_estimators": 400,
+          "learning_rate": 0.05,
+          "max_depth": 4,
+          "min_samples_split": 20,
+          "min_samples_leaf": 10
+        },
+        "XGBoost": {
+          "n_estimators": 400,
+          "learning_rate": 0.05,
+          "max_depth": 5,
+          "subsample": 0.8,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 5,
+          "gamma": 0.1,
+          "reg_alpha": 0.05,
+          "reg_lambda": 1.0,
+          "n_jobs": -1
+        }
+      },
+      "results": {
+        "Random Forest": {"R2": 0.888, "MAE": 66.46, "RMSE": 118.02},
+        "Gradient Boosting": {"R2": 0.793, "MAE": 113.16, "RMSE": 160.58},
+        "XGBoost": {"R2": 0.815, "MAE": 105.28, "RMSE": 151.85}
+      }
+    },
+    {
+      "run": 2,
+      "note": "GB/XGB hit tree limit at 400 — increased trees; RF reduced to convergence point (215)",
+      "params": {
+        "Random Forest": {
+          "n_estimators": 215,
+          "max_depth": 20,
+          "min_samples_leaf": 5,
+          "max_features": "sqrt",
+          "n_jobs": -1
+        },
+        "Gradient Boosting": {
+          "n_estimators": 600,
+          "learning_rate": 0.05,
+          "max_depth": 5,
+          "min_samples_split": 10,
+          "min_samples_leaf": 5
+        },
+        "XGBoost": {
+          "n_estimators": 500,
+          "learning_rate": 0.05,
+          "max_depth": 5,
+          "subsample": 0.8,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 5,
+          "gamma": 0.1,
+          "reg_alpha": 0.05,
+          "reg_lambda": 1.0,
+          "n_jobs": -1
+        }
+      },
+      "results": {
+        "Random Forest": {"R2": 0.888, "MAE": 66.50, "RMSE": 118.02},
+        "Gradient Boosting": {"R2": 0.841, "MAE": 96.52, "RMSE": 140.91},
+        "XGBoost": {"R2": 0.825, "MAE": 101.85, "RMSE": 147.91}
+      }
+    },
+    {
+      "run": 3,
+      "note": "RF uncapped depth min_samples_leaf=2; GB/XGB 1000 trees max_depth=6 less regularization — GB/XGB still at tree limit",
+      "params": {
+        "Random Forest": {
+          "n_estimators": 400,
+          "max_depth": null,
+          "min_samples_leaf": 2,
+          "max_features": "sqrt",
+          "n_jobs": -1
+        },
+        "Gradient Boosting": {
+          "n_estimators": 1000,
+          "learning_rate": 0.05,
+          "max_depth": 6,
+          "subsample": 0.8,
+          "min_samples_split": 5,
+          "min_samples_leaf": 2
+        },
+        "XGBoost": {
+          "n_estimators": 1000,
+          "learning_rate": 0.05,
+          "max_depth": 6,
+          "subsample": 0.8,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 2,
+          "gamma": 0.0,
+          "reg_alpha": 0.0,
+          "reg_lambda": 1.0,
+          "n_jobs": -1
+        }
+      },
+      "results": {
+        "Random Forest": {"R2": 0.915, "MAE": 51.94, "RMSE": 103.04},
+        "Gradient Boosting": {"R2": 0.887, "MAE": 77.59, "RMSE": 118.87},
+        "XGBoost": {"R2": 0.879, "MAE": 79.73, "RMSE": 123.01}
+      }
+    }
+    ,
+    {
+      "run": 4,
+      "note": "GB/XGB still at tree limit (1000) — doubled to 2000, max_depth=7, minimal regularization. All models reached R²>=0.9. GB/XGB best iter still at limit (1999/2000) — further gains possible but goal met.",
+      "params": {
+        "Random Forest": {
+          "n_estimators": 500,
+          "max_depth": null,
+          "min_samples_leaf": 1,
+          "max_features": "sqrt",
+          "n_jobs": -1
+        },
+        "Gradient Boosting": {
+          "n_estimators": 2000,
+          "learning_rate": 0.05,
+          "max_depth": 7,
+          "subsample": 0.8,
+          "min_samples_split": 2,
+          "min_samples_leaf": 1
+        },
+        "XGBoost": {
+          "n_estimators": 2000,
+          "learning_rate": 0.05,
+          "max_depth": 7,
+          "subsample": 0.8,
+          "colsample_bytree": 0.8,
+          "min_child_weight": 1,
+          "gamma": 0.0,
+          "reg_alpha": 0.0,
+          "reg_lambda": 0.5,
+          "n_jobs": -1
+        }
+      },
+      "results": {
+        "Random Forest": {"R2": 0.926, "MAE": 44.42, "RMSE": 96.13},
+        "Gradient Boosting": {"R2": 0.921, "MAE": 57.22, "RMSE": 99.08},
+        "XGBoost": {"R2": 0.915, "MAE": 58.87, "RMSE": 102.99}
+      }
+    }
+    ,
+    {
+      "run": 5,
+      "note": "Swapped GradientBoostingRegressor -> HistGradientBoostingRegressor (56x faster: 408s->7s). GB dropped R² 0.921->0.888 due to max_leaf_nodes=31 default being too restrictive.",
+      "params": {
+        "Random Forest": {
+          "n_estimators": 500, "max_depth": null, "min_samples_leaf": 1,
+          "max_features": "sqrt", "n_jobs": -1
+        },
+        "Gradient Boosting": {
+          "type": "HistGradientBoostingRegressor",
+          "max_iter": 2000, "learning_rate": 0.05, "max_depth": 7,
+          "max_leaf_nodes": 31, "min_samples_leaf": 1, "l2_regularization": 0.0
+        },
+        "XGBoost": {
+          "n_estimators": 2000, "learning_rate": 0.05, "max_depth": 7,
+          "subsample": 0.8, "colsample_bytree": 0.8, "min_child_weight": 1,
+          "gamma": 0.0, "reg_alpha": 0.0, "reg_lambda": 0.5, "n_jobs": -1
+        }
+      },
+      "results": {
+        "Random Forest": {"R2": 0.926, "MAE": 44.42, "RMSE": 96.13},
+        "Gradient Boosting": {"R2": 0.888, "MAE": 74.76, "RMSE": 118.39},
+        "XGBoost": {"R2": 0.915, "MAE": 58.87, "RMSE": 102.99}
+      }
+    },
+    {
+      "run": 6,
+      "note": "Hist GB: max_leaf_nodes 31->63, max_iter=3000, early_stopping=auto, n_iter_no_change=50. R² recovered to 0.912. Total run time 36s vs 429s in Run 4 (12x faster).",
+      "params": {
+        "Random Forest": {
+          "n_estimators": 500, "max_depth": null, "min_samples_leaf": 1,
+          "max_features": "sqrt", "n_jobs": -1
+        },
+        "Gradient Boosting": {
+          "type": "HistGradientBoostingRegressor",
+          "max_iter": 3000, "learning_rate": 0.05, "max_depth": 7,
+          "max_leaf_nodes": 63, "min_samples_leaf": 1, "l2_regularization": 0.0,
+          "early_stopping": "auto", "n_iter_no_change": 50
+        },
+        "XGBoost": {
+          "n_estimators": 2000, "learning_rate": 0.05, "max_depth": 7,
+          "subsample": 0.8, "colsample_bytree": 0.8, "min_child_weight": 1,
+          "gamma": 0.0, "reg_alpha": 0.0, "reg_lambda": 0.5, "n_jobs": -1
+        }
+      },
+      "results": {
+        "Random Forest": {"R2": 0.926, "MAE": 44.42, "RMSE": 96.13},
+        "Gradient Boosting": {"R2": 0.912, "MAE": 58.82, "RMSE": 105.01},
+        "XGBoost": {"R2": 0.915, "MAE": 58.87, "RMSE": 102.99}
+      }
+    }
+    ,
+    {
+      "run": 7,
+      "note": "Added apartment-only filter (type=='apartment'): 174,543->149,523 rows in df_cleaned, 144,105 in df_cleaned_region. Removed 'type' from features (constant after filter). All models improved significantly vs Run 6. Training time: RF=12.5s, GB=14.2s, XGB=5.0s, total=31.7s.",
+      "params": {
+        "data_filter": "apartments only (Southern states)",
+        "Random Forest": {
+          "n_estimators": 500, "max_depth": null, "min_samples_leaf": 1,
+          "max_features": "sqrt", "n_jobs": -1
+        },
+        "Gradient Boosting": {
+          "type": "HistGradientBoostingRegressor",
+          "max_iter": 3000, "learning_rate": 0.05, "max_depth": 7,
+          "max_leaf_nodes": 63, "min_samples_leaf": 1, "l2_regularization": 0.0,
+          "early_stopping": "auto", "n_iter_no_change": 50
+        },
+        "XGBoost": {
+          "n_estimators": 2000, "learning_rate": 0.05, "max_depth": 7,
+          "subsample": 0.8, "colsample_bytree": 0.8, "min_child_weight": 1,
+          "gamma": 0.0, "reg_alpha": 0.0, "reg_lambda": 0.5, "n_jobs": -1
+        }
+      },
+      "training_time_seconds": {
+        "Random Forest": 12.5,
+        "Gradient Boosting": 14.2,
+        "XGBoost": 5.0,
+        "total": 31.7
+      },
+      "results": {
+        "Random Forest": {"R2": 0.946, "MAE": 36.39, "RMSE": 79.51},
+        "Gradient Boosting": {"R2": 0.936, "MAE": 47.43, "RMSE": 86.06},
+        "XGBoost": {"R2": 0.938, "MAE": 47.90, "RMSE": 85.27}
+      }
+    }
+  ]
+}
