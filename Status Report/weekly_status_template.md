@@ -18,6 +18,11 @@
 > - Level 1: Sub-items (status, dates, descriptions, mitigation notes)
 > - Level 2: Further detail under a Level 1 item (e.g., sub-note under a date, clarification under a description)
 > - Up to 3 levels maximum. Never mix levels out of order. Every item sits under its logical parent.
+>
+> **PERCENTAGE COMPLETE — REQUIRED ON ALL TASKS**
+> - Completed tasks: must show **100% complete**
+> - In-progress tasks: must show **actual % complete** (e.g., 25%, 50%, 75%)
+> - Items To Be Started: N/A (no percentage needed)
 
 ---
 
