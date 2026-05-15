@@ -1,4 +1,4 @@
-# Weekly Status Report Template
+# Weekly Status Report — Week 2
 > CS703 Applied Data Science Project — Professor Nicholas Nardi
 > Each week: create new status, prepend to previous week's PPTX. By end of semester = 1 PPTX with all weeks stacked.
 
@@ -23,9 +23,9 @@
 
 ## SLIDE 1 — Title
 - **Project Name:** Housing Amenities Impact on Apartment Listing Prices in the Southern USA
-- **Week Ending:** [Friday date — e.g., May 9, 2026]
+- **Week Ending:** May 22, 2026
 - **Submitted by:** Gordon Oboh
-- **Submit Date:** [Saturday date, or actual date if late]
+- **Submit Date:** May 23, 2026
 
 ---
 
@@ -42,100 +42,175 @@
 ---
 
 ## SLIDE 3 — Status Overview
-- **Project Status:** [GREEN / YELLOW / RED]
-  - GREEN = on plan, on budget, no issues
-  - YELLOW = generally on plan, potential issues exist
-  - RED = not on plan, issues impacting project
+- **Project Status:** GREEN
 
-**For each major item (completed or in progress):**
-- [Task name] — Level 0
-  - Original Start: [date] | Revised Start: N/A | Actual Start: [date] — Level 1
-  - Original End:   [date] | Revised End:   N/A | Actual End:   [date or N/A] — Level 1
-  - [Short status note] — Level 1
+- Task 1.4: Produce Project Plan — Level 0
+  - Task is GREEN — 100% complete — Level 1
+  - Original Start: 2 May 2026 | Revised Start: N/A | Actual Start: 7 May 2026 — Level 1
+  - Original End:   9 May 2026 | Revised End:   N/A | Actual End: 13 May 2026 — Level 1
+  - Completed 4 days after original end date — Level 1
 
-- **If YELLOW/RED:** Include short explanation + mitigation on this slide
+- Task 2.1: Gathering Data — Deliverable: Data Collection Report — Level 0
+  - Task is GREEN — 100% complete — Level 1
+  - Original Start: 11 May 2026 | Revised Start: N/A | Actual Start: 12 May 2026 — Level 1
+  - Original End:   23 May 2026 | Revised End:   N/A | Actual End: 23 May 2026 — Level 1
+
+- Task 2.2: Describing Data — Deliverable: Data Description Report — Level 0
+  - Task is GREEN — 100% complete — Level 1
+  - Original Start: 11 May 2026 | Revised Start: N/A | Actual Start: 12 May 2026 — Level 1
+  - Original End:   23 May 2026 | Revised End:   N/A | Actual End: 23 May 2026 — Level 1
+
+- Task 2.3: Exploring Data — Deliverable: Data Exploration Report — Level 0
+  - Task is GREEN — 100% complete — Level 1
+  - Original Start: 11 May 2026 | Revised Start: N/A | Actual Start: 12 May 2026 — Level 1
+  - Original End:   23 May 2026 | Revised End:   N/A | Actual End: 23 May 2026 — Level 1
+
+- Task 2.4: Verifying Data Quality — Level 0
+  - Task is GREEN — 100% complete — Level 1
+  - Original Start: 11 May 2026 | Revised Start: N/A | Actual Start: 12 May 2026 — Level 1
+  - Original End:   23 May 2026 | Revised End:   N/A | Actual End: 23 May 2026 — Level 1
 
 ---
 
 ## SLIDE 4 — Items Completed This Week
 > Only tasks FULLY completed THIS week (not a running list). If nothing completed: "Per plan, no items completed this week."
 
-- [Task Name] — Level 0
+- Task 1.4: Produce Project Plan — Deliverable: Data Mining Project/Resource Plan — Level 0
   - Task is GREEN — 100% complete — Level 1
-  - Original Start: [date] | Revised Start: N/A | Actual Start: [date] — Level 1
-  - Original End:   [date] | Revised End:   N/A | Actual End:   [date] — Level 1
-  - [1-2 sentence description of what was completed] — Level 1
-  - If late: [Explanation of why] — Level 1
+  - Original Start: 2 May 2026 | Revised Start: N/A | Actual Start: 7 May 2026 — Level 1
+  - Original End:   9 May 2026 | Revised End:   N/A | Actual End: 13 May 2026 — Level 1
+  - Full CRISP-DM project timeline built out with task dates, deliverables, and resource plan — Level 1
+  - Completed 4 days after original end; delay due to scope of CRISP-DM timeline build-out required — Level 1
+
+- Task 2.1: Gathering Data — Deliverable: Data Collection Report — Level 0
+  - Task is GREEN — 100% complete — Level 1
+  - Original Start: 11 May 2026 | Revised Start: N/A | Actual Start: 12 May 2026 — Level 1
+  - Original End:   23 May 2026 | Revised End:   N/A | Actual End: 23 May 2026 — Level 1
+  - Dataset sourced from Kaggle: Craigslist housing listings scraped January 2020; 384,977 rows, 22 columns, 558.44 MB — Level 1
+
+- Task 2.2: Describing Data — Deliverable: Data Description Report — Level 0
+  - Task is GREEN — 100% complete — Level 1
+  - Original Start: 11 May 2026 | Revised Start: N/A | Actual Start: 12 May 2026 — Level 1
+  - Original End:   23 May 2026 | Revised End:   N/A | Actual End: 23 May 2026 — Level 1
+  - Features classified into numeric (price, sqfeet, beds, baths), categorical binary (amenity flags), categorical multi-class (region, type, laundry_options, parking_options), geographic (lat, long, state), and text/URL (excluded from modeling) — Level 1
+
+- Task 2.3: Exploring Data — Deliverable: Data Exploration Report — Level 0
+  - Task is GREEN — 100% complete — Level 1
+  - Original Start: 11 May 2026 | Revised Start: N/A | Actual Start: 12 May 2026 — Level 1
+  - Original End:   23 May 2026 | Revised End:   N/A | Actual End: 23 May 2026 — Level 1
+  - Summary statistics computed; apartments most common listing type; Q3 rental price $1,395, Q3 square footage 1,150 sqft; majority pet-friendly; furnished, EV charging, and wheelchair access represent minority listings; roughly 25% of listings smoke-friendly — Level 1
+
+- Task 2.4: Verifying Data Quality — Level 0
+  - Task is GREEN — 100% complete — Level 1
+  - Original Start: 11 May 2026 | Revised Start: N/A | Actual Start: 12 May 2026 — Level 1
+  - Original End:   23 May 2026 | Revised End:   N/A | Actual End: 23 May 2026 — Level 1
+  - Missing value analysis complete: laundry_options 20.5% missing, parking_options 36.5% missing, lat/long 0.5% missing; anomalies identified including $0 price listings and sub-1 sqft listings; all quality issues documented for remediation in Data Preparation phase — Level 1
 
 ---
 
 ## SLIDE 5 — Items In Progress
-> Always have something in progress.
 
-- [Task Name] — Level 0
-  - Task is [GREEN / YELLOW / RED] — [X]% complete — Level 1
-  - Original Start: [date] | Revised Start: N/A | Actual Start: [date] — Level 1
-  - Original End:   [date] | Revised End:   N/A | Actual End:   N/A (no actual end while in progress) — Level 1
-  - [Notes, issues, mitigation if yellow/red] — Level 1
+- Task 3.1: Select Data — Level 0
+  - Task is GREEN — 25% complete — Level 1
+  - Original Start: 24 May 2026 | Revised Start: N/A | Actual Start: 12 May 2026 — Level 1
+  - Original End:   6 Jun 2026 | Revised End:   N/A | Actual End: N/A — Level 1
+  - Started ahead of schedule; initial column selection in progress (dropping non-predictive columns: id, url, image_url, description) — Level 1
 
 ---
 
 ## SLIDE 6 — Items To Be Started
 > Always show 2-3 upcoming items. Scope to subsections of current CRISP-DM phase AND the next CRISP-DM phase.
-> Example: currently in 1.0 Business Understanding, list 1.1, 1.2 subsections + 2.0 Data Understanding.
 
-- [Subsection or next CRISP-DM phase] — Level 0
-  - Original Start: [date] | Revised Start: N/A | Actual Start: N/A — Level 1
-  - Original End:   [date] | Revised End:   N/A | Actual End:   N/A — Level 1
+- Task 3.2: Clean Data — Level 0
+  - Original Start: 24 May 2026 | Revised Start: N/A | Actual Start: N/A — Level 1
+  - Original End:   6 Jun 2026 | Revised End:   N/A | Actual End: N/A — Level 1
 
-- [Subsection or next CRISP-DM phase] — Level 0
-  - Original Start: [date] | Revised Start: N/A | Actual Start: N/A — Level 1
-  - Original End:   [date] | Revised End:   N/A | Actual End:   N/A — Level 1
+- Task 3.3: Construct Data — Level 0
+  - Original Start: 24 May 2026 | Revised Start: N/A | Actual Start: N/A — Level 1
+  - Original End:   6 Jun 2026 | Revised End:   N/A | Actual End: N/A — Level 1
+
+- Task 4.1: Select Modeling Technique — Level 0
+  - Original Start: 7 Jun 2026 | Revised Start: N/A | Actual Start: N/A — Level 1
+  - Original End:   20 Jun 2026 | Revised End:   N/A | Actual End: N/A — Level 1
 
 ---
 
 ## SLIDE 7 — Sample of Items Completed This Week
 > Show 1 significant artifact from this week. Options: image, code snippet, table, document excerpt.
-> Do NOT show 20 pages — show a representative section. No login-required links.
 
-- **What:** [Name of artifact]
-- **Why:** [1-2 sentences on significance]
-- **Content:** [Image / code block / table / excerpt]
+- **What:** Dataset Acquisition and Exploratory Distributions — Price and Square Footage
+- **Why:** The Kaggle Craigslist dataset (384,977 rows, 558 MB) is the foundation for all subsequent analysis. Confirming the data was successfully acquired and understanding the distributions of the two most important numeric features — rental price and square footage — validates that the Data Understanding phase produced a usable dataset for Southern USA modeling.
+- **Content:**
+
+  > **Data Source:** Kaggle — Craigslist Housing Listings (January 2020 scrape)
+  > Dataset: 384,977 rows × 22 columns, 558.44 MB
+  > Target variable: `price` (monthly rental in USD)
+  >
+  > **Price Distribution (Southern States Subset)**
+  > Right-skewed; majority of listings concentrated below $3,000/month; median near $1,100; long upper tail with outliers above $10,000 identified for removal in Data Preparation.
+  >
+  > **Square Footage Distribution (Southern States Subset)**
+  > Right-skewed; Q3 = 1,150 sqft; extreme outliers (< 1 sqft, impossibly large values) flagged as anomalies; IQR-based removal planned per state/region in Task 3.2.
 
 ---
 
 ## SLIDE 8 — Issues, Risks, Concerns
 > Issues = real/already happened | Risks = potential future | Concerns = external, out of control
-> If none: write "None at this time" under each header.
 
 - Issues — Level 0
-  - [Issue + impact + mitigation, or: None at this time] — Level 1
+  - None at this time — Level 1
+
 - Risks — Level 0
-  - [Risk + impact + mitigation, or: None at this time] — Level 1
+  - None at this time — Level 1
+ <!--- Dataset currency: Craigslist data scraped January 2020; rental market conditions have changed significantly since then — Level 1
+    - Impact: model predictions may not reflect current Southern USA rental pricing dynamics — Level 2
+    - Mitigation: scope findings to historical 2020 market; clearly document dataset date in all deliverables — Level 2
+  - Missing value concentration: laundry_options (20.5%) and parking_options (36.5%) have substantial missing rates — Level 1
+    - Impact: imputation strategy will influence model results for two key amenity features — Level 2
+    - Mitigation: impute as "missing" category (separate from "no laundry" / "no parking") to preserve signal — Level 2 --> 
+
 - Concerns — Level 0
-  - [Concern + impact + mitigation, or: None at this time] — Level 1
+  - None at this time — Level 1
 
 ---
 
 ## SLIDE 9 — Next Steps
 > Scope to current CRISP-DM section (subsections) + next CRISP-DM section only.
 
-- [Current phase or subsection continuing] — Level 0
-  - Original Start: [date] | Revised: N/A | Actual Start: [date] — Level 1
-  - Original End:   [date] | Revised: N/A | Actual End:   N/A — Level 1
-- [Next subsection] — Level 0
-  - Original Start: [date] | Revised: N/A | Actual Start: N/A — Level 1
-  - Original End:   [date] | Revised: N/A | Actual End:   N/A — Level 1
-- [Next CRISP-DM phase] — Level 0
-  - Original Start: [date] | Revised: N/A | Actual Start: N/A — Level 1
-  - Original End:   [date] | Revised: N/A | Actual End:   N/A — Level 1
+- Task 3.1: Select Data (continuing) — Level 0
+  - Original Start: 24 May 2026 | Revised: N/A | Actual Start: 12 May 2026 — Level 1
+  - Original End:   6 Jun 2026 | Revised: N/A | Actual End: N/A — Level 1
+
+- Task 3.2: Clean Data — Level 0
+  - Original Start: 24 May 2026 | Revised: N/A | Actual Start: N/A — Level 1
+  - Original End:   6 Jun 2026 | Revised: N/A | Actual End: N/A — Level 1
+
+- Task 3.3: Construct Data — Level 0
+  - Original Start: 24 May 2026 | Revised: N/A | Actual Start: N/A — Level 1
+  - Original End:   6 Jun 2026 | Revised: N/A | Actual End: N/A — Level 1
+
+- Task 3.4: Integrate Data — Level 0
+  - Original Start: 24 May 2026 | Revised: N/A | Actual Start: N/A — Level 1
+  - Original End:   6 Jun 2026 | Revised: N/A | Actual End: N/A — Level 1
+
+- Task 3.5: Format Data — Level 0
+  - Original Start: 24 May 2026 | Revised: N/A | Actual Start: N/A — Level 1
+  - Original End:   6 Jun 2026 | Revised: N/A | Actual End: N/A — Level 1
+
+- Task 4.1: Select Modeling Technique — Level 0
+  - Original Start: 7 Jun 2026 | Revised: N/A | Actual Start: N/A — Level 1
+  - Original End:   20 Jun 2026 | Revised: N/A | Actual End: N/A — Level 1
+
+- Task 4.2: Generate Test Design — Level 0
+  - Original Start: 7 Jun 2026 | Revised: N/A | Actual Start: N/A — Level 1
+  - Original End:   20 Jun 2026 | Revised: N/A | Actual End: N/A — Level 1
 
 ---
 
 ## SLIDE 10 — Personal Reflection
 > Thoughts and feelings — NOT an activity log. ~1 paragraph. Only you and Professor Nardi see this.
 
-[Write freely: how you feel the project is going, what surprised you, concerns, insights, confidence level, etc.]
+The Data Understanding phase went better than expected this week — having all four tasks (2.1 through 2.4) wrapped up on time gave me a real sense of momentum after Task 1.4 running a few days late. What surprised me most was the sheer size of the dataset; nearly 385,000 rows felt overwhelming at first, but once I started working through the distributions and quality checks it became clear there is strong signal in the data. The missing value rates for laundry and parking options (20% and 36%) are higher than I hoped, but finding them now means the Data Preparation phase has a clear plan. I am also slightly ahead of schedule on Task 3.1, which feels good given the midterm presentation is on the horizon. My confidence in the project direction is high.
 
 ---
 

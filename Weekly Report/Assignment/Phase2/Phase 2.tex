@@ -1,0 +1,232 @@
+
+
+\setcounter{section}{2}
+%\section{Data Understanding}
+
+
+
+\subsection{Gathering Data}
+\label{subsec:Gathering Data}
+\noindent
+The dataset was obtained from \href{https://www.kaggle.com/datasets/austinreese/usa-housing-listings}{Kaggle}. According to the dataset author, the data was scraped from Craigslist in approximately January 2020 and compiled into a single CSV file. The raw file has the following dimensions:
+\vspace{-12pt}
+\begin{itemize} [itemsep = -12pt]
+    \item File size: 558.44 MB
+    \item Total rows: 384,977
+    \item Total columns: 22
+\end{itemize}
+
+
+\subsection{Describing Data}
+\noindent
+The dataset contains a mix of numeric, categorical, text, and geographic feature types. The target variable for this project is price.
+
+\begin{table}
+    \centering
+    \begin{tabular}{||p{2.2cm}|p{8cm}|p{4.7cm}||}
+    \hline
+    \hline
+        Feature Type & Features & Notes \\
+        \hline
+        \hline
+        Numeric & price, sqfeet, beds, baths & Target: price \\
+        \hline
+        Categorical (Binary) & cats\_allowed, dogs\_allowed, smoking\_allowed, wheelchair\_access, electric\_vehicle\_charge, comes\_furnished & Boolean amenity flags \\
+        \hline
+        Categorical (Multi) & region, type, laundry\_options, parking\_options & Multi-class labels \\
+        \hline
+        Geographical & lat, long, state, region & Used for location clustering \\
+        \hline
+        Text / URL & id, url, region\_url, image\_url, description & Excluded from modeling \\
+        \hline
+        \hline
+    \end{tabular}
+    %\caption{Caption}
+    %\label{tab:placeholder}
+\end{table}
+
+\subsection{Exploring Data}
+\noindent
+Initial exploratory analysis revealed the following key patterns and distributions within the dataset. Apartments are the most common property type, followed by houses and townhouses. Most properties fall below the third quartile values of 1,150 square feet and \$1,395 in price, and most listings are below two bathrooms and two bedrooms at the third quartile level. The dataset is described as largely pet friendly, while furnished listings, EV charging availability, and wheelchair accessibility are all reported as minority cases. About one quarter of listings are noted as smoke friendly.
+
+
+%\hl{include plots; price distribution, sqft distribution, bath distribution, bed distribution, pie chart of pets, furnishing, wheelchair, ev charging, smoking}
+
+
+%\begin{figure}[H]
+%    \centering
+%    \caption{Distribution of selected categorical housing features.}
+%    \label{fig:pie}
+%
+%    % Row 1
+%    \begin{subfigure}[b]{0.329\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{Assignment/week14/charts/pie_Cats Allowed.png}
+%        \caption{Cats allowed}
+%        \label{fig:pie_cats}
+%    \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.329\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{Assignment/week14/charts/pie_Dogs Allowed.png}
+%        \caption{Dogs allowed}
+%        \label{fig:pie_dogs}
+%    \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.329\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{Assignment/week14/charts/pie_Comes Furnished.png}
+%        \caption{Comes furnished}
+%        \label{fig:pie_furnished}
+%    \end{subfigure}
+%
+%    \vspace{-9pt}
+%
+%    % Row 2
+%    \begin{subfigure}[b]{0.329\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{Assignment/week14/charts/pie_Electric Vehicle Charge.png}
+%        \caption{Electric vehicle charge}
+%        \label{fig:pie_ev}
+%    \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.329\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{Assignment/week14/charts/pie_Smoking Allowed.png}
+%        \caption{Smoking allowed}
+%        \label{fig:pie_smoking}
+%    \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.329\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{Assignment/week14/charts/pie_Wheelchair Access.png}
+%        \caption{Wheelchair access}
+%        \label{fig:pie_wheelchair}
+%    \end{subfigure}
+%
+%    \vspace{-9pt}
+%    % Row 3
+%    \begin{subfigure}[b]{0.46\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{Assignment/week14/charts/pie_Laundry Options.png}
+%        \caption{Laundry options}
+%        \label{fig:pie_laundry}
+%    \end{subfigure}
+%    \hfill
+%    \begin{subfigure}[b]{0.46\textwidth}
+%        \centering
+%        \includegraphics[width=\textwidth]{Assignment/week14/charts/pie_Parking Options.png}
+%        \caption{Parking options}
+%        \label{fig:pie_parking}
+%    \end{subfigure}
+%\end{figure}
+
+\begin{figure}[t!]
+    \centering
+    \caption{Exploratory data analysis histograms for key housing variables.}
+    \label{fig:EDA}
+
+    \begin{subfigure}[b]{0.489\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase2/charts/hist_Price Distribution .png}
+        \caption{Price distribution}
+        \label{fig:EDA_price}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.489\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase2/charts/hist_Square Footage Distribution .png}
+        \caption{Square footage distribution}
+        \label{fig:EDA_sqft}
+    \end{subfigure}
+
+\end{figure}
+
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[width=0.7\textwidth]{Assignment/Phase2/charts/Pearson Correlation with Price.png}
+%  \caption{Pearson Correlation Heatmap - Numeric Features vs Price}
+%  \label{fig:heatmap_Pearson}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[width=0.7\textwidth]{Assignment/Phase2/charts/Spearman Correlation with Price.png}
+%  \caption{Spearman Correlation Heatmap - Numeric Features vs Price}
+%  \label{fig:heatmap_Spearman}
+%\end{figure}
+
+
+
+\begin{figure}[h!]
+    \centering
+    \caption{Correlation Test - Numeric Features vs Price}
+    \label{fig:heatmap}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase2/charts/Pearson Correlation with Price.png}
+        \caption{Pearson}
+        \label{fig:heatmap_Pearson}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase2/charts/Spearman Correlation with Price.png}
+        \caption{Spearman}
+        \label{fig:heatmap_Spearman}
+    \end{subfigure}
+\end{figure}
+
+
+\newpage
+
+\vspace{15000pt}
+  
+\subsection{Verifying Data Quality}
+\noindent
+A structured quality assessment was conducted to identify missing values, duplicates, pricing anomalies, and structural issues before data preparation began.
+
+\subsubsection{Missing Values}
+\noindent
+The following columns were found to contain missing values:
+
+
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{||p{3cm}|p{4cm}|p{2cm}||}
+    \hline
+    \hline
+        Feature	& Missing Count & Missing \% \\
+        \hline
+        \hline
+        laundry\_options	& 79,026	& 20.53\% \\
+        \hline
+        parking\_options	& 140,687	& 36.54\% \\
+        \hline
+        lat	& 1,918	& 0.50\% \\
+        \hline
+        long	& 1,918	& 0.50\% \\
+        \hline
+        \hline
+    \end{tabular}
+    %\caption{Caption}
+    %\label{tab:placeholder}
+\end{table}
+
+%\newpage
+
+%\hl{Check after Phase 3}
+\subsubsection{Anomalies and Outliers}
+\vspace{-12pt}
+\begin{itemize} [itemsep = -9pt]
+    \item Properties listed at \$0 were identified and removed. These may represent listings open to negotiation, but they introduce noise into price modeling.
+    \item Properties with less than 1 sq ft were identified and removed.
+    \item Properties with 0 bedrooms and 0 bathrooms were retained, as these may represent valid land rental listings.
+    \item Price outliers were noted and will be addressed in Section 3.2 %addressed in Section \ref{subsec:Cleaning Data}.
+\end{itemize}
+
+
+
+
