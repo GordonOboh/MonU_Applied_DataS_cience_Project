@@ -25,6 +25,8 @@ master_schedule.md
 master_schedule.md
 Weekly Report/Professor feedback
 .claude/
-Status Report/
+Status Report/*
+!Status Report/templates.zip
 
 !Weekly Report/CS703_Phase*.pdf
+.claude/tmp.txt
