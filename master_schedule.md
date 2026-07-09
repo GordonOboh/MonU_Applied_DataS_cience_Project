@@ -228,10 +228,10 @@
 - [ ] Status Report submitted
 
 ### CRISP-DM Tasks
-- [ ] 6.1 Plan Deployment
-  - [ ] Define deployment approach (or document revision decision)
-- [ ] 6.2 Plan Monitoring and Maintenance
-  - [ ] Define model monitoring strategy
+- [x] 6.1 Plan Deployment
+  - [x] Define deployment approach (or document revision decision)
+- [x] 6.2 Plan Monitoring and Maintenance
+  - [x] Define model monitoring strategy
 - [ ] 6.3 Produce Final Report and Presentation
   - [ ] Draft final report
   - [ ] Build final presentation slides

@@ -2,3 +2,4 @@
 - [LaTeX report storage requirement](project_latex_rule.md) — All reports save to Weekly Report folder only
 - [Em dash replacement rule](feedback_emdash_rule.md) — Replace em dashes in .tex files with commas, colons, or parentheses
 - [Project geographic scope](project_scope_geography.md) — Scope is Southern USA states, never named cities
+- [Methodical PPTX review process](feedback_methodical_pptx_review.md) — Extract and compare PPTX against draft .md line-by-line before declaring done

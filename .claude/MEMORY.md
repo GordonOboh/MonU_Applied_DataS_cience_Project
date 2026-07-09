@@ -1,3 +1,4 @@
 - [LaTeX file structure requirement](project_latex_structure.md) — Main.tex calls weekX/main.tex, each week self-contained
 - [LaTeX report storage requirement](project_latex_rule.md) — All reports save to Weekly Report folder only
 - [Em dash replacement rule](feedback_emdash_rule.md) — Replace em dashes in .tex files with commas, colons, or parentheses
+- [Project geographic scope](memory/project_scope_geography.md) — Scope is Southern USA states, never named cities

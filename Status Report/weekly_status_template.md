@@ -175,3 +175,33 @@
 | 4.0 Modeling | Build and tune models |
 | 5.0 Evaluation | Assess results against business goals |
 | 6.0 Deployment | Deliver findings and documentation |
+
+## Remaining Status Report Focus
+
+> Each week's status report should be scoped to the work actually being done that week:
+
+| Week | Due | Focus |
+|------|-----|-------|
+| **Week 10** | Jul 11 | Task 6.1 (Plan Deployment) and Task 6.2 (Plan Monitoring & Maintenance) |
+| **Week 11** | Jul 18 | Task 6.3: Final Presentation |
+| **Week 12** (LAST) | Jul 25 | Task 6.3: Final Report |
+
+---
+
+## Phase 6 Professor Guidance (June 19, 2026)
+
+> [!IMPORTANT]
+> From Professor Nardi's email response:
+
+- **Tasks 6.1 and 6.2 must NOT be skipped.** Even though there is no physical production deployment for this academic project, a Deployment Plan and a Monitoring and Maintenance Plan must be written.
+- **Weekly status reports continue through July 18 as normal.** Even if no tasks were completed that week, still submit a status report — just note "Per plan, no items completed this week" on the Items Completed slide.
+- **Phase 6 report must include the Deployment Plan and Monitoring/Maintenance Plan sections.** Review the assignment brief for the exact section requirements.
+
+### Phase 6 Task Schedule
+| Task | Original Start | Original End |
+|------|---------------|-------------|
+| Task 6.1: Plan Deployment | 5 Jul 2026 | 11 Jul 2026 |
+| Task 6.2: Plan Monitoring and Maintenance | 5 Jul 2026 | 11 Jul 2026 |
+| Task 6.3: Final Presentation | 12 Jul 2026 | 25 Jul 2026 |
+| Task 6.3: Final Report | 12 Jul 2026 | 1 Aug 2026 |
+| Task 6.4: Review Project | 12 Jul 2026 | 1 Aug 2026 |

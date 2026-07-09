@@ -21,3 +21,10 @@ generate_status_report.py
 *.pptx*
 
 content_*
+master_schedule.md
+master_schedule.md
+Weekly Report/Professor feedback
+.claude/
+Status Report/
+
+!Weekly Report/CS703_Phase*.pdf

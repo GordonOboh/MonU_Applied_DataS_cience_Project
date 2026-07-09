@@ -40,6 +40,9 @@
   "latex-workshop.message.warning.show": true,
   "latex-workshop.linting.chktex.enabled": false,
   "editor.wordWrap": "on",
+  "notebook.cellFocusIndicator": "border",
+  "notebook.output.scrolling": true,
+  "notebook.consolidatedRunButton": false,
   "files.exclude": {
     "**/*.aux": true,
     "**/*.bbl": true,

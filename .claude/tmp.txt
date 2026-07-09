@@ -8,3 +8,6 @@ sudo rm /etc/sudoers.d/claude-apt
 dsd --resume de2678f8-9d85-4763-a602-386b99a30477
 
 clauded --resume 216e3276-e084-49ae-98a1-10ec5b3acd6e
+
+
+ can you review the task in Phase 2 in ./Weekly Report/CRISP DM Documentation.pdf and check if my ./Weekly Report/Assignment/Phase2/Phase 2.tex meets all the requirements, if it doesn't tell me what's missing. 
