@@ -1,0 +1,148 @@
+%\setcounter{section}{3}
+\section{Data Preparation}
+
+
+\subsection{Selecting Data}
+\label{subsec:Selecting Data}
+\noindent
+The following variables were reviewed individually for inclusion or exclusion based on their potential to contribute to apartment rental price prediction.
+
+\subsubsection{Kept Variables}
+
+\begin{itemize}
+    \item \texttt{price}: The target variable. Required for supervised regression modeling.
+
+    \item \texttt{sqfeet}: Square footage is a physical measure of unit size. Larger units command higher rent, making this a primary numeric predictor.
+
+    \item \texttt{beds}: Number of bedrooms is a core unit descriptor directly affecting rental price.
+
+    \item \texttt{baths}: Number of bathrooms is a core unit descriptor directly affecting rental price.
+
+    \item \texttt{cats\_allowed}: Binary flag indicating whether cats are permitted. Directly tied to the business goal of identifying price-driving amenities.
+
+    \item \texttt{dogs\_allowed}: Binary flag indicating whether dogs are permitted. Directly tied to the business goal of identifying price-driving amenities.
+
+    \item \texttt{smoking\_allowed}: Binary flag indicating whether smoking is permitted. Directly tied to the business goal of identifying price-driving amenities.
+
+    \item \texttt{wheelchair\_access}: Binary flag indicating wheelchair accessibility. Directly tied to the business goal of identifying price-driving amenities.
+
+    \item \texttt{electric\_vehicle\_charge}: Binary flag indicating EV charging availability. Directly tied to the business goal of identifying price-driving amenities.
+
+    \item \texttt{comes\_furnished}: Binary flag indicating whether the unit is furnished. Directly tied to the business goal of identifying price-driving amenities.
+
+    \item \texttt{laundry\_options}: Multi-class categorical feature describing on-site laundry availability. Amenity relevant to the research question.
+
+    \item \texttt{parking\_options}: Multi-class categorical feature describing on-site parking availability. Amenity relevant to the research question.
+
+    \item \texttt{lat} and \texttt{long}: Geographic coordinates enabling location-based price analysis. Used to create a location cluster feature capturing local market effects.
+
+    \item \texttt{state}: State identifier needed to filter the dataset to the Southern US project scope and to support per-state analysis.
+
+    \item \texttt{region}: Craigslist metro area identifier capturing local market pricing conditions.
+
+    \item \texttt{type}: Property type (apartment, house, townhouse, etc.). Retained during selection to enable the apartment-only filter in Cleaning (Section~3.2). After filtering, it becomes single-valued and is dropped.
+\end{itemize}
+
+\subsubsection{Excluded Variables}
+
+\begin{itemize}
+    \item \texttt{id}: Auto-incrementing unique identifier assigned by the data collector. No relationship to rental price.
+
+    \item \texttt{url}: Listing URL. Non-numeric text field with no predictive signal for price.
+
+    \item \texttt{image\_url}: Link to listing photograph. Non-numeric text field with no feasibly extractable signal.
+
+    \item \texttt{description}: Free-text listing description. Structured analysis is not feasible without natural language processing tools.
+
+    \item \texttt{region\_url}: Craigslist region URL. Redundant with the \texttt{region} column.
+\end{itemize}
+
+
+\subsection{Cleaning Data}
+\label{subsec:Cleaning Data}
+\noindent
+Records with \texttt{price} $< 1$ were removed. A rental price of \$0 or below is economically impossible and indicates a data entry error (missing data coded as zero, a placeholder, or a test listing). The threshold of \$1 is intentionally conservative: it removes only provably invalid entries rather than merely inexpensive units.
+
+Records with \texttt{sqfeet} $< 70$ were removed. Seventy square feet is roughly the size of a parking space, far below the minimum size of even the smallest legal studio or micro-unit (typically 150--300 sq ft). Values below this threshold are likely typos (e.g., 750 entered as 75) or unit conversion errors. Again, the cutoff is deliberately loose to avoid discarding valid small apartments.
+
+These are the only range-based filters applied at this stage. Additional outlier treatment (IQR-based, by region) is applied separately in Section~3.2 to handle extreme price values without conflating impossible values with merely unusual ones. Listing-level duplicate checks confirmed zero duplicate rows in the dataset.
+
+\noindent
+Geographic filtering was applied next. %Instead of the multi-box CONUS/Alaska-Hawaii/South Florida approach used in earlier iterations, 
+A single bounding box covering the 17 Southern states was applied directly to \texttt{df\_selected}: latitude \texttt{SOUTH\_LAT\_MIN} $= 24.55^\circ$ (Key West, FL) to \texttt{SOUTH\_LAT\_MAX} $= 40.64^\circ$ (WV Northern Panhandle), and longitude \texttt{SOUTH\_LONG\_MIN} $= -106.65^\circ$ (El Paso, TX) to \texttt{SOUTH\_LONG\_MAX} $= -75.05^\circ$ (MD/DE Atlantic coast). %This box is tighter than the CONUS box and eliminates the need for separate Alaska, Hawaii, and South Florida override masks.
+
+\noindent
+The dataset was then filtered to the 17 Southern states per the Census Bureau definition (AL, AR, DC, DE, FL, GA, KY, LA, MD, MS, NC, OK, SC, TN, TX, VA, WV)%, aligning with the project scope established in Phase~2.
+Because the geographic bounding box was applied first, this second pass also catches any records with a valid Southern state code but coordinates that fell inside the box through mislabeling rather than actual location. The filtered data spans 148 unique Craigslist regions.
+
+\noindent
+Finally, the dataset was restricted to apartments only %(\texttt{type == "apartment"})
+, per the project scope definition. Since \texttt{type} becomes constant after this filter, the column was dropped%from \texttt{df\_cleaned}. 
+. Figures~\ref{fig:Housing_Listing_Locations_Not_Cleaned} and~\ref{fig:Housing_Listing_Locations_Cleaned} show the full dataset before cleaning and the Southern-apartment subset after all filters but before IQR-based outlier removal.
+
+The first map displays the complete raw dataset: listings span the entire continental US, Alaska, and Hawaii, with sparse points in Canada and the Pacific confirming that the geographic bounding box correction was necessary. Points are concentrated along population corridors (Northeast, Great Lakes, California, Florida, Gulf Coast) rather than evenly distributed, which is expected from Craigslist listing density. The second map shows the filtered dataset restricted to the Southern bounding box and apartments only. The geographic concentration is visibly tighter: listings cluster along the I-95 corridor (Florida to Virginia), the I-20/I-85 corridor (Texas through Georgia), and major metropolitan areas (Atlanta, Dallas, Houston, Miami, Washington DC). Scattered rural points confirm that the region-level filter preserved small-market listings rather than keeping only urban centers. The contrast between the two maps demonstrates that the scope filtering successfully isolated the target market (Southern apartments) without introducing obvious geographic bias within the region.
+
+\begin{figure}[h!]
+    \centering
+    \caption{Housing Listing Locations}
+    \label{fig:Housing_Listing_Locations}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/Housing Listing Locations, Not Cleaned.png}
+        \subcaption{Not Cleaned}
+        \label{fig:Housing_Listing_Locations_Not_Cleaned}
+    \end{minipage}\hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/Southern Apartment Listing Locations, Cleaned.png}
+        \subcaption{Cleaned: Southern States (Apartments Only)}
+        \label{fig:Housing_Listing_Locations_Cleaned}
+    \end{minipage}
+\end{figure}
+
+\noindent
+After these filters, approximately 144,000 cleaned apartment records remain across 17 Southern states and several hundred regions: sufficient breadth and volume to train a generalizable price prediction model.
+
+\noindent
+Price outliers were treated using the IQR method% with multiplier $k = 1.5$
+, applied per region %(\texttt{scope = "region"})
+. A per-region approach respects the distinct price distributions of different housing markets: a luxury outlier in rural Mississippi and a typical listing in a major metro area may share the same dollar figure, and a global rule would conflate them. The IQR filter is applied to the price column only, leaving other numeric features untouched to avoid deleting valid but uncommon listings (large homes, high bedroom counts, etc.). %The resulting dataset is stored as \texttt{df\_cleaned\_region}.
+
+\noindent
+No cleaning was applied to categorical features (\texttt{cats\_allowed}, \texttt{dogs\_allowed}, \texttt{smoking\_allowed}, \texttt{wheelchair\_access}, \texttt{electric\_vehicle\_charge}, \texttt{comes\_furnished}, \texttt{laundry\_options}, \texttt{parking\_options}), as these are labels rather than numeric measurements and are not subject to outlier or range checks.
+
+
+\subsection{Constructing Data}
+\label{subsec:Constructing Data}
+\noindent
+A new feature, \texttt{location\_cluster}, was engineered from latitude and longitude using K-Means clustering with $k = 148$ clusters, matching the number of unique Craigslist regions in the filtered Southern-states dataset. The intent was to group properties into geographic clusters that approximate proximity to local rental sub-markets, capturing pricing patterns that raw coordinates or state-level groupings alone cannot express.
+
+\noindent
+Coordinates were imputed with the median prior to clustering %via \texttt{SimpleImputer(strategy="median")}, fit on the training partition and applied to both train and test sets. 
+Cluster labels were converted to strings and treated as a categorical feature in downstream encoding. The data was split 80/20 into train and test sets (\texttt{random\_state=42}) before clustering to prevent data leakage: the K-Means model was fit exclusively on training coordinates.
+
+\noindent
+No separate data-generation step was performed beyond this feature construction.
+
+
+\subsection{Integrating Data}
+\label{subsec:Integrating Data}
+\noindent
+No data integration was required. The project uses a single, self-contained CSV dataset from Kaggle with no external tables, APIs, or supplementary sources to merge.
+
+
+\subsection{Formatting Data}
+\label{subsec:Formatting Data}
+\noindent
+Numeric features were imputed with the median% using \texttt{SimpleImputer(strategy="median")}
+. No scaling or normalization was applied, as the project uses tree-based models (Random Forest, HistGradientBoostingRegressor, XGBoost) that are invariant to monotonic transformations of numeric features.
+
+\noindent
+Categorical features received two distinct treatments based on their missing-data patterns. For \texttt{laundry\_options} and \texttt{parking\_options}: missing values were replaced with the literal string \texttt{"Missing"}, preserving the absence of information as a distinct category that may itself carry predictive signal (e.g., listings that omit parking details may differ systematically from those that declare ``no parking''). For all other categorical features (\texttt{state}, \texttt{region}, \texttt{location\_cluster}), missing values were filled with the mode%using \texttt{SimpleImputer(strategy="most\_frequent")}
+.
+
+\noindent
+All categorical features were encoded using \texttt{TargetEncoder} from the \texttt{category\_encoders} library with smoothing set to 10. Target encoding was chosen over one-hot encoding because several categorical features have high cardinality (\texttt{state}: 17 levels, \texttt{region}: 148 Craigslist metro areas, \texttt{location\_cluster}: 148 levels). One-hot encoding would have created hundreds of sparse binary columns, inflating training time and complicating feature importance interpretation, while ordinal encoding would have imposed a false ordering on nominal categories. Target encoding compresses each categorical level to a single numeric value (the smoothed mean of the target), preserving predictive signal without dimensionality explosion. This reduced per-model training time from an estimated 60--90 minutes to under one minute.
+
+\noindent
+After preprocessing, the final training matrix contained 11 numeric features and 5 target-encoded categorical features; the test matrix was identically structured. No \texttt{"Missing"} or \texttt{"value"} string artifacts remained in either matrix after encoding, confirming that the preprocessing pipeline executed without leakage or data corruption.

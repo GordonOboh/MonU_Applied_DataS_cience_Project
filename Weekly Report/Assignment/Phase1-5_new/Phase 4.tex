@@ -1,0 +1,350 @@
+\section{Modeling}
+
+\subsection{Selecting Modeling Techniques}
+
+\noindent
+Three regression models were selected as the primary predictive models for this project: Random Forest, HistGradientBoostingRegressor, and XGBoost. The selection was guided by the nature of the dataset: as observed in the correlation heatmap%(Fig \ref{fig:heatmap_Pearson} and Fig \ref{fig:heatmap_Spearman})
+, 
+the features do not exhibit a clear linear relationship with price, which makes linear regression models less suitable. Tree-based ensemble methods are well suited to capturing non-linear relationships, interactions between features, and complex patterns in the data.
+
+\noindent
+HistGradientBoostingRegressor was chosen over standard GradientBoostingRegressor because it is approximately 56 times faster on a sample dataset while delivering comparable R-squared values.
+
+\subsubsection{Model Assumptions}
+\vspace{-12pt}
+\begin{itemize} [itemsep = -9pt]
+    \item Tree-based models do not assume linearity, normality, or homoscedasticity in the relationship between features and the target.
+    \item These models assume that the target variable is related to the input features in a structured (learnable) way.
+    \item Target encoding assumes that the historical median of the target variable per category is a meaningful signal for categorical features such as region and state.
+    \item K-Means clustering assumes that meaningful geographic clusters exist within the latitude/longitude space, which is supported by the known concentration of housing markets around urban centres.
+\end{itemize}
+
+\subsection{Designing Tests}
+\label{subsec:Designing Tests}
+\noindent
+The test design uses an 80/20 train-test split applied before any clustering or encoding to prevent data leakage. The final training matrix contains 113,682 rows with 16 features, and the test set contains 28,421 rows.
+
+\noindent
+The evaluation metrics used are: MAE, MSE, RMSE, R\textsuperscript{2}, ASE, SSE, and Observed Average. The visualisation outputs used for model assessment include: feature-importance plots, observed-versus-predicted plots, and iteration plots showing ASE versus the number of trees. \\
+\noindent
+A fair comparison between the candidate models is supported by applying the same train-test split and reviewing the same metric set across all models.
+
+\subsection{Building Model(s)}
+
+\subsubsection{Model Descriptions}
+\label{subsec:Model Descriptions}
+\noindent
+\textbf{K-Means Clustering:}
+K-Means is an unsupervised algorithm that groups data points into clusters based on similarity. In this project, it was applied to latitude and longitude values to create geographically meaningful clusters. The algorithm iteratively assigns each property to the nearest centroid and updates centroid positions based on the average coordinates of assigned points until the clusters stabilise. K-Means does not use a target variable; it identifies structure from the input coordinates directly. The location cluster feature was generated using K-Means with n\_clusters=148, matching the number of unique Craigslist regions in the cleaned Southern dataset. This provided a categorical geographic feature that captures neighbourhood-level price variation beyond what state and region alone can represent.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{||l|p{12cm}||}
+    \hline
+    \hline
+        Parameter & Definition \\
+        \hline
+        \hline
+        n\_clusters & Number of cluster groups to create from the coordinates. Revised from 50 to 125 to 148 (matching the number of unique Craigslist regions in the cleaned Southern dataset). \\
+        \hline
+        random\_state=42 & Fixes the random seed for centroid initialisation, ensuring reproducible results. \\
+        \hline
+        n\_init=10 & Runs K-Means 10 times with different initialisations; retains the best result to avoid poor clustering from unlucky seeds. \\
+        \hline
+        \hline
+    \end{tabular}
+\end{table}
+
+\vspace{-12pt}
+\noindent
+\textbf{Random Forest Regressor:}
+Random Forest is an ensemble of decision trees trained on random subsets of the training data. For regression, the final prediction is the average of all individual tree predictions. By training each tree on a slightly different sample, the model captures diverse patterns in the data and reduces the variance associated with a single tree. Feature importance is derived from how much each feature reduces prediction error across all trees.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{||l|p{12cm}||}
+    \hline
+    \hline
+        Parameter & Definition \\
+        \hline
+        \hline
+        n\_estimators=500 & Number of decision trees in the forest. More trees improve stability and reduce variance. Increased from 200 to 500 during iterative tuning. \\
+        \hline
+        max\_depth=None & Trees are allowed to grow until all leaves are pure or contain fewer than min\_samples\_leaf samples. \\
+        \hline
+        min\_samples\_leaf=1 & The minimum number of samples required to be at a leaf node. A value of 1 allows the tree to fit training data closely. \\
+        \hline
+        max\_features="sqrt" & Limits the number of features considered at each split to the square root of the total number of features, reducing overfitting. \\
+        \hline
+        random\_state=42 & Controls randomness in sampling and tree construction for reproducibility. \\
+        \hline
+        n\_jobs=-1 & Uses all available CPU cores to speed up training. \\
+        \hline
+        \hline
+    \end{tabular}
+\end{table}
+
+\vspace{-12pt}
+\noindent
+\textbf{HistGradientBoostingRegressor:}
+HistGradientBoostingRegressor builds trees sequentially, where each new tree is trained to correct the residual errors of the previous ensemble. Unlike standard gradient boosting, it uses histogram-based binning of continuous features to speed up training significantly. Starting from an initial prediction, the model calculates errors, fits a shallow tree to those errors, and adds it to the model with a small weight controlled by the learning rate. This iterative error-correction process allows the model to capture complex patterns gradually, with early stopping to prevent overfitting.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{||l|p{12cm}||}
+    \hline
+    \hline
+        Parameter & Definition \\
+        \hline
+        \hline
+        max\_iter=3000 & Maximum number of boosting iterations (trees). The model may stop earlier via early stopping. \\
+        \hline
+        learning\_rate=0.05 & Controls how much each new tree contributes. A lower rate makes learning more gradual and typically improves generalisation. \\
+        \hline
+        max\_depth=7 & Limits the depth of each individual tree, allowing richer feature interactions while controlling overfitting. \\
+        \hline
+        max\_leaf\_nodes=63 & Maximum number of leaves per tree. Increased from the default of 31 to allow more granular splits for leaf-wise growth. \\
+        \hline
+        min\_samples\_leaf=1 & Minimum number of samples per leaf. \\
+        \hline
+        early\_stopping="auto" & Automatically stops training when validation loss stops improving for 50 consecutive iterations. \\
+        \hline
+        random\_state=42 & Ensures reproducibility. \\
+        \hline
+        \hline
+    \end{tabular}
+\end{table}
+
+\vspace{-12pt}
+\noindent
+\textbf{XGBoost Regressor:}
+XGBoost is an optimised implementation of gradient boosting. It applies the same sequential correction approach but adds regularisation, row/column subsampling, and a highly optimised training engine that makes it faster and often more accurate than standard gradient boosting.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{||l|p{12cm}||}
+    \hline
+    \hline
+        Parameter & Definition \\
+        \hline
+        \hline
+        objective="reg:squarederror" & Specifies a regression task minimising squared error. \\
+        \hline
+        n\_estimators=2000 & Number of boosted trees. Increased from 300 to 2000 during iterative tuning. \\
+        \hline
+        learning\_rate=0.05 & Contribution of each tree to the final prediction. \\
+        \hline
+        max\_depth=7 & Maximum tree depth, allowing richer feature interactions than shallower settings. Increased from 6 to 7 during tuning. \\
+        \hline
+        subsample=0.8 & Uses 80\% of training rows per tree to reduce overfitting. \\
+        \hline
+        colsample\_bytree=0.8 & Uses 80\% of features per tree for better generalisation. \\
+        \hline
+        random\_state=42 & Ensures reproducibility. \\
+        \hline
+        n\_jobs=-1 & Uses all CPU cores for faster training. \\
+        \hline
+        \hline
+    \end{tabular}
+\end{table}
+
+%\vspace{-12pt}
+%\noindent
+
+
+\subsection{Assessing Model(s)}
+\label{subsec:Assessing Model(s)}
+\noindent
+Model performance was assessed using the metrics defined in Section \ref{subsec:Designing Tests}. The table below presents the evaluation results for all three models.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{|l|r|r|r|r|r|r|r|}
+\hline
+\hline
+Model & MAE & MSE & RMSE & R\textsuperscript{2} & ASE & SSE & ObservedAvg\\
+\hline
+Random Forest & 35.58 & 5978.4 & 77.32 & 0.946 & 5978.4 & 169913246.5 & 1016.17\\
+HistGradientBoosting & 47.07 & 7344.9 & 85.70 & 0.934 & 7344.9 & 208749725.6 & 1016.17\\
+XGBoost & 46.47 & 6820.1 & 82.58 & 0.939 & 6820.1 & 193833558.3 & 1016.17\\
+\hline
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\noindent
+Random Forest achieved the highest R\textsuperscript{2} of 0.946 and the lowest error metrics across all categories, indicating the strongest predictive performance among the three models. XGBoost ranked second with an R\textsuperscript{2} of 0.939, while HistGradientBoostingRegressor (recorded as HistGradientBoosting in the metrics table) achieved an R\textsuperscript{2} of 0.934.
+
+\noindent
+The Observed Average price of \$1,016.17 provides a baseline: Random Forest's MAE of \$35.58 represents an average prediction error of approximately 3.5\% relative to the mean listing price, which is a strong result for this domain. All three models performed well, with the gap between the best and worst model being only 0.012 in R\textsuperscript{2}.
+
+\begin{figure}[h!]
+    \centering
+    \caption{Key Performance Metrics}
+    \label{fig:KPM}
+
+    % Row 1
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/ASE by Model.png}
+        \caption{ASE}
+        \label{fig:KPM_ASE}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/MAE by Model.png}
+        \caption{MAE}
+        \label{fig:KPM_MAE}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/MSE by Model.png}
+        \caption{MSE}
+        \label{fig:KPM_MSE}
+    \end{subfigure}
+
+    \vspace{-9pt}
+
+    % Row 2
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/R2 by Model.png}
+        \caption{R\textsuperscript{2}}
+        \label{fig:KPM_R2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/RMSE by Model.png}
+        \caption{RMSE}
+        \label{fig:KPM_RMSE}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/SSE by Model.png}
+        \caption{SSE}
+        \label{fig:KPM_SSE}
+    \end{subfigure}
+\end{figure}
+
+\newpage
+\begin{figure}[h!]
+    \centering
+    \caption{Top 4 Feature Importance Scores Across Tree-Based Models}
+    \label{fig:FI}
+
+    % Row 1
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/Random Forest Feature Importance (Top 4).png}
+        \caption{Random Forest}
+        \label{fig:FI_RF}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/HistGradientBoosting Feature Importance (Top 4).png}
+        \caption{HistGradientBoosting}
+        \label{fig:FI_GB}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/XGBoost Feature Importance (Top 4).png}
+        \caption{XGBoost}
+        \label{fig:FI_XGB}
+    \end{subfigure}
+\end{figure}
+
+\noindent
+Table \ref{tab:fi_ranking} summarises the top features and their rankings across all three models. The cross-model agreement is notable: \texttt{location\_cluster} is the most important predictor in every model, confirming that geographic clustering captured meaningful price variation. \texttt{region} also appears in the top 3 for all models, and square footage appears in two of the three.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{|l|c|c|c|}
+\hline
+\hline
+Feature & RF & HistGB & XGB \\
+\hline
+location\_cluster & 1 & 1 & 1 \\
+region & 2 & 3 & 2 \\
+sqfeet & 3 & 2 & — \\
+lat & 4 & — & — \\
+long & — & 4 & — \\
+baths & — & — & 3 \\
+laundry\_options & — & — & 4 \\
+\hline
+\hline
+\end{tabular}
+\caption{Feature importance rankings across models (blank = outside top 4)}
+\label{tab:fi_ranking}
+\end{table}
+
+\vspace{-12pt}
+%\newpage
+\begin{figure}[h!]
+    \centering
+    \caption{Average Squared Error (ASE) vs Number of Trees for Ensemble Models}
+    \label{fig:AvT}
+
+    % Row 1
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/Random Forest; ASE vs No̱ of Trees Plot_2.png}
+        \caption{Random Forest}
+        \label{fig:AvT_RF}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/HistGradientBoosting; ASE vs No̱ of Trees Plot_2.png}
+        \caption{HistGradientBoosting}
+        \label{fig:AvT_GB}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/XGBoost; ASE vs No̱ of Trees Plot_2.png}
+        \caption{XGBoost}
+        \label{fig:AvT_XGB}
+    \end{subfigure}
+\end{figure}
+
+%\newpage
+\begin{figure}[h!]
+    \centering
+    \caption{Observed vs Predicted Values}
+    \label{fig:OvP}
+
+    % Row 1
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/Random Forest: Observed vs Predicted.png}
+        \caption{Random Forest}
+        \label{fig:OvP_RF}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/HistGradientBoosting: Observed vs Predicted.png}
+        \caption{HistGradientBoosting}
+        \label{fig:OvP_GB}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.329\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assignment/Phase1-5/charts/XGBoost: Observed vs Predicted.png}
+        \caption{XGBoost}
+        \label{fig:OvP_XGB}
+    \end{subfigure}
+\end{figure}
+
+\vspace{150pt}
+\textcolor{white}{.}
