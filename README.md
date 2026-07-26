@@ -103,12 +103,19 @@ Across all models, the top predictors of listing price were:
 ## Project Structure
 
 ```
-├── Capstone_Final_cc_ST_2.ipynb            # Full analysis notebook
-├── CS703_Applied_Data_Science_report.pdf   # Project report
-├── charts/                                 # Generated plots and metrics
-├── requirements.txt                        # Dependencies
-├── Status Report/                          # Weekly status reports (PPTX + MD)
-├── Project Management/                     # Project plan, presentations
+├── Capstone_Final_cc_ST_2.ipynb        # Main analysis notebook
+├── Capstone/                           # Earlier notebook versions
+├── charts/                             # Generated plots and model metrics
+│   ├── model_performance_metrics.csv   # Model comparison table
+│   ├── charts_old.zip                  # Archived previous charts
+│   └── *.png                           # Visualizations (distributions, correlations, feature importance, etc.)
+├── housing_resized.csv                 # Dataset
+├── KPM/
+│   └── model_performance_metrics.csv   # Archived earlier metrics
+├── Project Management/                 # Presentations, outlines, compliance assessment
+├── requirements.txt                    # Dependencies
+├── Status Report/Phase6/               # Weekly status reports (PPTX + MD + build scripts)
+├── Weekly Report/                      # LaTeX report source files
 └── README.md
 ```
 
