@@ -1,25 +1,23 @@
-# U.S. Housing Price Feature Analysis
+# Housing Amenities Impact on Apartment Listing Prices in the Southern USA
 
 ![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 [![Report](https://img.shields.io/badge/report-PDF-red?logo=adobeacrobatreader&logoColor=white)](https://github.com/GordonOboh/MonU_Applied_DataS_cience_Project/blob/main/CS703_Applied_Data_Science_report.pdf)
 
-A machine learning project to identify the key features that influence rental property pricing across the United States — covering CONUS, Alaska, and Hawaii.
+A machine learning project to identify how apartment amenities impact listing prices across the Southern United States, using the CRISP-DM methodology.
 
 ---
 
 ## Overview
 
-[This project uses a dataset of ~385,000 Craigslist rental listings](https://www.kaggle.com/datasets/austinreese/usa-housing-listings) to build and compare three ensemble regression models. The goal is not just to predict price, but to understand **which property features drive pricing**, giving actionable insight for real estate stakeholders.
-
+This project analyzes apartment rental listings to determine which amenities and property features most influence pricing. Three ensemble regression models are built and compared to identify the key drivers of listing price, providing actionable insight for property managers, landlords, and renters in the Southern US market.
 
 ---
 
 ## Dataset
 
-- **Size**: 384,977 listings (after cleaning: ~362,781)
-- **Coverage**: All 50 U.S. states
-- **Features**: Square footage, beds, baths, pet policies, laundry/parking options, amenities, geographic coordinates, state, and region
+- **Coverage**: Southern United States (apartment listings)
+- **Features**: Square footage, beds, baths, pet policies (cats/dogs allowed), laundry options, parking options, wheelchair access, EV charging, smoking policy, furnished status, and geographic location
 
 ---
 
@@ -29,14 +27,14 @@ A machine learning project to identify the key features that influence rental pr
 Raw Data → EDA → Cleaning → Feature Engineering → Modeling → Evaluation
 ```
 
-1. **Exploratory Data Analysis** — Summary statistics, missing value analysis, geographic scatter plots
-2. **Data Cleaning** — Geographic bounding boxes (CONUS + Alaska/Hawaii), IQR-based price filtering per region, removing extreme outliers
-3. **Feature Engineering** — K-Means location clustering (125 clusters), target encoding for categorical features
-4. **Modeling** — Three ensemble regressors trained on an 80/20 split (290,224 train / 72,557 test)
+1. **Exploratory Data Analysis** — Summary statistics, distributions, correlation analysis
+2. **Data Cleaning** — Handling missing values, outlier removal, geographic filtering
+3. **Feature Engineering** — Encoding categorical amenity variables, feature scaling
+4. **Modeling** — Three ensemble regressors trained on an 80/20 split
 
 <p align="center">
   <img src="charts/Housing Listing Locations, Not Cleaned.png" width="48%" alt="Listings before cleaning"/>
-  <img src="charts/Housing Listing Locations, Cleaned.png" width="48%" alt="Listings after cleaning"/>
+  <img src="charts/Southern Apartment Listing Locations, Cleaned.png" width="48%" alt="Southern apartment listings after cleaning"/>
 </p>
 <p align="center">
   <img src="charts/Pearson Correlation with Price.png" width="48%" alt="Pearson Correlation"/>
@@ -47,15 +45,15 @@ Raw Data → EDA → Cleaning → Feature Engineering → Modeling → Evaluatio
 
 ## Models & Results
 
-> Full metrics: [`KPM/model_performance_metrics.csv`](./KPM/model_performance_metrics.csv)
+> Full metrics: [`charts/model_performance_metrics.csv`](./charts/model_performance_metrics.csv)
 
 | **Model** | **MAE** | **RMSE** | **R²** |
 |---|---|---|---|
-| **Random Forest** | **$62.70** | **$137.80** | **0.922** |
-| XGBoost | $124.33 | $185.62 | 0.858 |
-| Gradient Boosting | $150.68 | $221.11 | 0.799 |
+| **Random Forest** | **$35.58** | **$77.32** | **0.946** |
+| HistGradientBoosting | $47.07 | $85.70 | 0.934 |
+| XGBoost | $46.47 | $82.58 | 0.939 |
 
-Random Forest achieved the best performance with an **R² of 0.922**, meaning it explains ~92% of the variance in rental prices.
+Random Forest achieved the best performance with an **R² of 0.946**, explaining ~95% of the variance in apartment listing prices.
 
 <p align="center">
   <img src="charts/R2 by Model.png" width="32%" alt="R² by Model"/>
@@ -67,16 +65,16 @@ Random Forest achieved the best performance with an **R² of 0.922**, meaning it
 
 ## Key Features Influencing Price
 
-Across all three models, the top predictors of rental price were consistently:
+Across all models, the top predictors of listing price were:
 
-- **Location** (state, region, and geographic cluster)
 - **Square footage**
+- **Location** (geographic coordinates, state, region)
 - **Number of bedrooms and bathrooms**
-- **Property type**
+- **Amenities** (pool, garage, pet policies, laundry options)
 
 <p align="center">
   <img src="charts/Random Forest Feature Importance (Top 4).png" width="32%" alt="RF Feature Importance"/>
-  <img src="charts/Gradient Boosting Feature Importance (Top 4).png" width="32%" alt="GB Feature Importance"/>
+  <img src="charts/HistGradientBoosting Feature Importance (Top 4).png" width="32%" alt="HGB Feature Importance"/>
   <img src="charts/XGBoost Feature Importance (Top 4).png" width="32%" alt="XGB Feature Importance"/>
 </p>
 
@@ -84,7 +82,7 @@ Across all three models, the top predictors of rental price were consistently:
 
 <p align="center">
   <img src="charts/Random Forest: Observed vs Predicted.png" width="32%" alt="RF Observed vs Predicted"/>
-  <img src="charts/Gradient Boosting: Observed vs Predicted.png" width="32%" alt="GB Observed vs Predicted"/>
+  <img src="charts/HistGradientBoosting: Observed vs Predicted.png" width="32%" alt="HGB Observed vs Predicted"/>
   <img src="charts/XGBoost: Observed vs Predicted.png" width="32%" alt="XGB Observed vs Predicted"/>
 </p>
 
@@ -105,13 +103,12 @@ Across all three models, the top predictors of rental price were consistently:
 ## Project Structure
 
 ```
-├── Capstone_Final.ipynb                    # Full analysis notebook
+├── Capstone_Final_cc_ST_2.ipynb            # Full analysis notebook
 ├── CS703_Applied_Data_Science_report.pdf   # Project report
-├── housing_resized.csv                     # Dataset
-├── charts/                                 # Generated plots
-├── KPM/
-│   └── model_performance_metrics.csv       # Model metrics
+├── charts/                                 # Generated plots and metrics
 ├── requirements.txt                        # Dependencies
+├── Status Report/                          # Weekly status reports (PPTX + MD)
+├── Project Management/                     # Project plan, presentations
 └── README.md
 ```
 
@@ -123,7 +120,7 @@ Across all three models, the top predictors of rental price were consistently:
 pip install -r requirements.txt
 ```
 
-Then open and run `Capstone_Final.ipynb` in order.
+Then open and run `Capstone_Final_cc_ST_2.ipynb` in order.
 
 ---
 
