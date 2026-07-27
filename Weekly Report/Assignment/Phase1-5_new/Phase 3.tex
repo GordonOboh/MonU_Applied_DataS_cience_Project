@@ -6,11 +6,12 @@
 \label{subsec:Selecting Data}
 \noindent
 The following variables were reviewed individually for inclusion or exclusion based on their potential to contribute to apartment rental price prediction. Each variable is evaluated on its type (numeric, binary, multi-class categorical, text, geographic) and its expected predictive signal for the regression task.
+%\begin{tabular}{||p{4cm}|p{2cm}|p{2.6cm}|p{5.5cm}||}
 
 \begin{table}[h!]
     \centering
     \small
-    \begin{tabular}{||p{3cm}|p{2cm}|p{3cm}|p{6.5cm}||}
+    \begin{tabular}{||p{3.7cm}|p{2.5cm}|p{2.4cm}|p{5.5cm}||}
     \hline
     \hline
         Variable & Type & Levels / Range & Justification \\
@@ -95,7 +96,7 @@ The following variables were reviewed individually for inclusion or exclusion ba
 \noindent
 Records with \texttt{price} $< 1$ were removed. A rental price of \$0 or below is economically impossible and indicates a data entry error (missing data coded as zero, a placeholder, or a test listing). The threshold of \$1 is justified by examining the price distribution: the 1st percentile of apartment listings is approximately \$400, meaning that values below \$1 are not merely inexpensive but physically impossible as real transactions. This conservative cutoff removes only provably invalid entries (1,307 records, 0.34\% of data) rather than merely inexpensive units.
 
-Records with \texttt{sqfeet} $< 70$ were removed. Seventy square feet is roughly the size of a parking space (standard parking space is 8.5 ft $\times$ 18 ft = 153 sq ft), far below the minimum size of even the smallest legal studio or micro-unit (typically 150--300 sq ft). Examining the distribution: the 1st percentile of square footage for apartments is approximately 450 sq ft, confirming that values below 70 sq ft are not compact units but data-entry errors (e.g., 750 entered as 75) or unit conversion mistakes. The cutoff is deliberately loose (70 sq ft, well below the smallest habitable unit) to avoid discarding valid small apartments while still removing physically impossible records (48 records, 0.01\% of data).
+Records with \texttt{sqfeet} $< 70$ were removed (929 records, 0.24\% of data). Seventy square feet is roughly the size of a parking space (standard parking space is 8.5 ft $\times$ 18 ft = 153 sq ft), far below the minimum size of even the smallest legal studio or micro-unit (typically 150--300 sq ft). Examining the distribution: the 1st percentile of square footage for apartments is approximately 450 sq ft, confirming that values below 70 sq ft are not compact units but data-entry errors (e.g., 750 entered as 75) or unit conversion mistakes. The cutoff is deliberately loose (70 sq ft, well below the smallest habitable unit) to avoid discarding valid small apartments while still removing physically impossible records.
 
 These are the only range-based filters applied at this stage. Additional outlier treatment (IQR-based, by region) is applied separately in Section~3.2 to handle extreme price values without conflating impossible values with merely unusual ones. Listing-level duplicate checks confirmed zero duplicate rows in the dataset.
 
@@ -141,6 +142,9 @@ Price outliers were treated using the IQR method% with multiplier $k = 1.5$
 . A per-region approach respects the distinct price distributions of different housing markets: a luxury outlier in rural Mississippi and a typical listing in a major metro area may share the same dollar figure, and a global rule would conflate them. The IQR filter is applied to the price column only, leaving other numeric features untouched to avoid deleting valid but uncommon listings (large homes, high bedroom counts, etc.). %The resulting dataset is stored as \texttt{df\_cleaned\_region}.
 
 \noindent
+After region-level IQR filtering, \textbf{142,103 records} remain across the 17 Southern states. This final count forms the basis of the train-test split and all downstream modeling.
+
+\noindent
 No cleaning was applied to categorical features (\texttt{cats\_allowed}, \texttt{dogs\_allowed}, \texttt{smoking\_allowed}, \texttt{wheelchair\_access}, \texttt{electric\_vehicle\_charge}, \texttt{comes\_furnished}, \texttt{laundry\_options}, \texttt{parking\_options}), as these are labels rather than numeric measurements and are not subject to outlier or range checks.
 
 
@@ -174,7 +178,7 @@ Categorical features received two distinct treatments based on their missing-dat
 .
 
 \noindent
-All categorical features were encoded using \texttt{TargetEncoder} from the \texttt{category\_encoders} library with smoothing set to 10. Target encoding was chosen over one-hot encoding because several categorical features have high cardinality (\texttt{state}: 17 levels, \texttt{region}: 148 Craigslist metro areas, \texttt{location\_cluster}: 148 levels). One-hot encoding would have created hundreds of sparse binary columns, inflating training time and complicating feature importance interpretation, while ordinal encoding would have imposed a false ordering on nominal categories. Target encoding compresses each categorical level to a single numeric value (the smoothed mean of the target), preserving predictive signal without dimensionality explosion. This reduced per-model training time from an estimated 60--90 minutes to under one minute.
+All categorical features were encoded using \texttt{TargetEncoder} from the \texttt{category\_encoders} library with smoothing set to 10. Target encoding was chosen over one-hot encoding because several categorical features have high cardinality (\texttt{state}: 17 levels, \texttt{region}: 148 Craigslist metro areas, \texttt{location\_cluster}: 148 levels). One-hot encoding would have created hundreds of sparse binary columns, inflating training time and complicating feature importance interpretation, while ordinal encoding would have imposed a false ordering on nominal categories. Target encoding compresses each categorical level to a single numeric value (the smoothed mean of the target), preserving predictive signal without dimensionality explosion. This reduced per-model training time from an estimated 60--90 minutes to under three minutes.
 
 \noindent
 After preprocessing, the final training matrix contained 11 numeric features and 5 target-encoded categorical features; the test matrix was identically structured. No \texttt{"Missing"} or \texttt{"value"} string artifacts remained in either matrix after encoding, confirming that the preprocessing pipeline executed without leakage or data corruption.

@@ -103,11 +103,11 @@ HistGradientBoostingRegressor builds trees sequentially, where each new tree is 
         \hline
         max\_depth=7 & Limits the depth of each individual tree, allowing richer feature interactions while controlling overfitting. \\
         \hline
-        max\_leaf\_nodes=63 & Maximum number of leaves per tree. Increased from the default of 31 to allow more granular splits for leaf-wise growth. \\
+        max\_leaf\_nodes=63 & Maximum number of leaves per tree. Set to 63 to control model complexity while allowing granular splits for leaf-wise growth. \\
         \hline
         min\_samples\_leaf=1 & Minimum number of samples per leaf. \\
         \hline
-        early\_stopping="auto" & Automatically stops training when validation loss stops improving for 50 consecutive iterations. \\
+        early\_stopping="auto" & Automatically stops training when validation loss stops improving for 10 consecutive iterations. \\
         \hline
         random\_state=42 & Ensures reproducibility. \\
         \hline
@@ -287,7 +287,7 @@ laundry\_options & — & — & 4 \\
 \label{tab:fi_ranking}
 \end{table}
 
-\vspace{-12pt}
+%\vspace{-12pt}
 %\newpage
 \begin{figure}[h!]
     \centering
@@ -356,5 +356,5 @@ XGBoost ranks second overall (R\textsuperscript{2} = 0.939) and could be conside
 \noindent
 All three models agree that \texttt{location\_cluster} is the single most important predictor and that geographic features dominate the feature importance rankings. This consensus strengthens confidence in the business conclusion that location drives rental price far more than any individual amenity.
 
-\vspace{150pt}
-\textcolor{white}{.}
+%\vspace{150pt}
+%\textcolor{white}{.}

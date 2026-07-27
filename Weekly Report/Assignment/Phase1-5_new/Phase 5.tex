@@ -26,9 +26,9 @@ XGBoost & 46.47 & 6820.1 & 82.58 & 0.939 & 6820.1 & 193833558.3 & 1016.17\\
 \label{tab:model_performance}
 \end{table}
 
-%\vspace{-12pt}
+\vspace{-24pt}
 \noindent
-The metrics in Table \ref{tab:model_performance} serve distinct purposes in evaluating rental price predictions. MAE (\$35.58--\$47.07) reports the average absolute dollar error and is the most interpretable metric for a business audience: Random Forest's MAE of \$35.58 means that, on average, its predicted rent differs from the actual rent by about \$36. MSE and SSE reflect squared errors and penalise large mistakes more heavily; the large SSE values (e.g., 170M for Random Forest) are expected given 28,421 test records and do not indicate poor fit -- they are dataset-size-dependent. RMSE (\$77.32--\$85.70) brings the squared error back to dollar units and is directly comparable across models. R\textsuperscript{2} (0.934--0.946) measures the proportion of variance in price explained by the model and is scale-independent: a value of 0.946 means the model accounts for 94.6\% of the price variation in the test set, leaving only 5.4\% unexplained. This is strong for housing data, where factors like lease terms, property condition, and negotiation outcomes are not captured.
+The metrics in Table \ref{tab:model_performance} serve distinct purposes in evaluating rental price predictions. MAE values range from \$35.58 (Random Forest) to \$47.07 (HistGradientBoosting), reporting the average absolute dollar error — the most interpretable metric for a business audience. MSE and SSE reflect squared errors and penalise large mistakes more heavily; the large SSE values (e.g., 170M for Random Forest) are expected given 28,421 test records and do not indicate poor fit — they are dataset-size-dependent. RMSE values range from \$77.32 to \$85.70, bringing squared error back to dollar units for direct model comparison. R\textsuperscript{2} (0.934--0.946) measures the proportion of variance in price explained by the model and is scale-independent: a value of 0.946 means the model accounts for 94.6\% of the price variation in the test set, leaving only 5.4\% unexplained. This is strong for housing data, where factors like lease terms, property condition, and negotiation outcomes are not captured.
 
 \noindent
 Random Forest achieved the highest R\textsuperscript{2} of 0.946 and the lowest error metrics across all categories, indicating the strongest predictive performance among the three models. XGBoost ranked second with an R\textsuperscript{2} of 0.939, while HistGradientBoostingRegressor achieved an R\textsuperscript{2} of 0.934. All three models performed well, with the gap between the best and worst model being only 0.012 in R\textsuperscript{2}. The R\textsuperscript{2} values across all three models are tightly clustered (range 0.934--0.946), which means the choice of tree-based ensemble matters less than the feature engineering decisions that all three models share -- particularly location clustering.
@@ -37,29 +37,7 @@ Random Forest achieved the highest R\textsuperscript{2} of 0.946 and the lowest 
 For this project, these results mean that Random Forest is the strongest candidate for estimating rental prices from listing data. Its performance suggests that the model can produce predictions reasonably close to actual prices for many properties in the dataset, making it the most reliable of the three tested approaches. The Observed Average price of \$1,016.17 provides a meaningful baseline: Random Forest's MAE of \$35.58 represents an average prediction error of approximately 3.5\% relative to the mean listing price, which is a strong result for this domain. This is important because the main goal of the project is to produce a predictive understanding of what drives apartment listing prices in the Southern United States.
 
 \noindent
-The feature importance results confirm that location-based features are the dominant drivers of rental price. The location\_cluster feature created by K-Means clustering on latitude and longitude coordinates ranked as the most important predictor across all three models. Region and square footage (sqfeet) consistently appeared in the top three. Table \ref{tab:fi_ranking} summarises the top features and their rankings across all three models.
-
-\begin{table}[ht]
-\centering
-\small
-\begin{tabular}{|l|c|c|c|}
-\hline
-\hline
-Feature & RF & HistGB & XGB \\
-\hline
-location\_cluster & 1 & 1 & 1 \\
-region & 2 & 3 & 2 \\
-sqfeet & 3 & 2 & --- \\
-lat & 4 & --- & --- \\
-long & --- & 4 & --- \\
-baths & --- & --- & 3 \\
-laundry\_options & --- & --- & 4 \\
-\hline
-\hline
-\end{tabular}
-\caption{Feature importance rankings across models (blank = outside top 4)}
-\label{tab:fi_ranking}
-\end{table}
+The feature importance results confirm that location-based features are the dominant drivers of rental price. The location\_cluster feature created by K-Means clustering ranked as the most important predictor across all three models (see Table~\ref{tab:fi_ranking} in Phase~4 for the full ranking). Region and square footage (sqfeet) consistently appeared in the top three across all models.
 
 \noindent
 The cross-model agreement is notable: location\_cluster is the most important predictor in every model, confirming that geographic clustering captured meaningful price variation that individual region labels alone could not. For renters, this means the model can help assess whether a property is reasonably priced relative to its area and size. For landlords and property managers, it shows which factors have the greatest influence on expected rental value, and that individual amenities such as laundry options or pet policies matter far less than location and size.
@@ -106,16 +84,7 @@ The CRISP-DM framework provided effective structure for moving from business obj
 \noindent
 Region-sensitive IQR outlier handling was a clear improvement over national-level filtering. By treating each region's price distribution independently, the models avoided discarding valid high-end listings from expensive markets while still removing true outliers in cheaper areas. The improvement was visible in both R\textsuperscript{2} and MAE after the switch.
 
-\noindent
-Location clustering via K-Means (n\_clusters=148) substantially improved model performance across all three algorithms. The location\_cluster feature emerged as the number-one predictor in every model, confirming that this engineering decision was the single most impactful of the project.
-
-\noindent
-Target encoding was an effective choice for high-cardinality categorical features (region: 148 levels, location\_cluster: 148 levels). It compressed each category to a single numeric value without the dimensionality explosion of one-hot encoding, reducing per-model training time from an estimated 60--90 minutes to under one minute while preserving predictive signal.
-
 \subsubsection{What Did Not Work}
-\noindent
-Initial attempts at K-Means with fewer clusters (50, then 125) produced weaker results until the cluster count was matched to the number of Craigslist regions (148). This suggests that the default elbow-method or heuristic approaches to choosing k would have been less effective than domain-informed selection.
-
 \noindent
 Individual amenity features (pet policies, smoking, wheelchair access, EV charging, furnished) showed limited predictive power despite being the project's primary analytical focus. The models consistently ranked location and size far above any amenity flag.
 \vspace{-12pt}
@@ -145,10 +114,10 @@ The following potential improvements were identified for future iterations of th
 \begin{itemize}[itemsep=-9pt]
     \item Optimize K-Means clustering by systematically finding the optimal number of clusters (e.g., elbow method or silhouette scores) rather than matching the number of Craigslist regions.
     \item Using newer and larger datasets would improve model relevancy to current market forces and expand geographic coverage beyond the Southern USA.
-    \item Applying NLP to the description field could reveal insights missed by structured features, such as renovation quality or neighborhood character.
-    \item Use GPU/CUDA to speed up training, tuning, and hyperparameter search for more extensive experimentation.
+    \item Use GPU/CUDA acceleration (requiring hardware upgrade from the current 2 vCPU/2 GB RAM environment) to speed up training, tuning, and hyperparameter search for more extensive experimentation.
     \item Combining all three models in a weighted ensemble could improve prediction reliability by leveraging the strengths of each approach.
     \item Additional feature engineering (such as price-per-square-foot ratios, proximity to urban centers, or property age estimation) could capture further explanatory power.
+    \item In a future iteration with expanded hardware and tooling, NLP analysis of the \texttt{description} field could reveal insights missed by structured features, such as renovation quality or neighborhood character.
 \end{itemize}
 
 \vspace{-9pt}

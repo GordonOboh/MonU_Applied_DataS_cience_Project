@@ -27,9 +27,11 @@ The project directly supports real estate investors and property managers by pro
 \subsection{Assess the Situation}
 \vspace{-9pt}
 \begin{itemize}[itemsep=-9pt]
-    \item \textbf{Data recency:} Dataset reflects 2020 market conditions; no real-time pricing data is available. \textit{Impact:} model predictions may not fully reflect post-2020 market shifts (e.g., pandemic-driven remote work trends, inflation). Results should be interpreted as a baseline requiring periodic retraining.
-    \item \textbf{Hardware limitations:} No GPU or TPU hardware available. \textit{Impact:} computationally expensive techniques (deep learning, large-scale NLP on listing descriptions) are infeasible. Modeling is limited to CPU-efficient algorithms.
-    \item \textbf{Geographic scope:} Analysis is restricted to Southern US states. \textit{Impact:} conclusions about amenity importance may not generalize to other regions with different housing market dynamics (e.g., Northeast walkability, West Coast parking constraints).
+    \item \textbf{Personnel:} Single data scientist (Gordon Oboh) responsible for all phases of the project, with an academic advisor (Professor Nicholas Nardi) providing feedback on deliverables.
+    \item \textbf{Computing resources:} 2 vCPU, 2 GB RAM, Ubuntu 24.04 LTS Server. No GPU available.
+    \item \textbf{Data availability:} The Kaggle dataset is fully downloaded and accessible in CSV format (37.2 MB working file). No APIs, streaming sources, or database connections are required.
+    \item \textbf{Assumptions:} (1) Craigslist listings in January 2020 are representative of the broader Southern apartment rental market; (2) listing price approximates actual transaction price; (3) amenity flags reported by submitters are truthful; (4) the CRISP-DM framework will be followed throughout the project.
+    \item \textbf{Terminology:} \textit{Amenity} — a desirable feature of a rental property (pet policy, laundry, parking, etc.). \textit{Listing price} — the monthly rent advertised on Craigslist. \textit{Southern USA} — the 17 states per the US Census Bureau definition (AL, AR, DC, DE, FL, GA, KY, LA, MD, MS, NC, OK, SC, TN, TX, VA, WV).
 \end{itemize}
 
 \vspace{-9pt}
@@ -87,7 +89,7 @@ Language / IDE & Python 3.12.3, VS Code, Jupyter Notebook \\
 Key Libraries & pandas 3.0.1, numpy 2.4.2, matplotlib 3.10.8, scipy 1.17.1 \\
                & scikit-learn 1.8.0, xgboost 3.2.0, category-encoders 2.9.0, joblib 1.5.3 \\
 Data Source    & \href{https://www.kaggle.com/datasets/austinreese/usa-housing-listings}{Kaggle} (Craigslist scrape, January 2020) \\
-Hardware       & 2 vCPU, 2 GB RAM, Ubuntu 24 Server \\
+Hardware       & 2 vCPU, 2 GB RAM, Ubuntu 24.04 LTS Server \\
 \hline
 \end{tabular}
 \end{center}}%

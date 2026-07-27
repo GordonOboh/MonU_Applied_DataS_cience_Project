@@ -63,7 +63,7 @@ The following concrete tasks enumerate what is required to move from the current
     \item \textbf{Action:} Create a FastAPI application with a single \texttt{POST /predict} endpoint accepting a JSON body of listing features. The endpoint loads the serialized model at startup, applies all preprocessing steps, and returns \texttt{\{"predicted\_rent": 1025.00\}}.
     \item \textbf{Tools:} FastAPI 0.115+, Uvicorn, Docker, Docker Compose.
     \item \textbf{Effort:} 2--3 days.
-    \item \textbf{Validation:} Send 50 test listings with known prices; confirm MAE matches the research-phase value of \$35.58 within rounding tolerance.
+    \item \textbf{Validation:} Send 50 test listings with known prices; confirm that the test-set MAE does not degrade significantly from the research-phase baseline (\$35.58).
 \end{itemize}
 
 \medskip\noindent
@@ -158,3 +158,37 @@ For a small-scale academic project, a single data scientist or analyst would be 
 
 \noindent
 If the project were to expand to a larger deployment, these responsibilities would be distributed across a team with dedicated roles for data engineering, model validation, and stakeholder communication.
+
+\subsection{Produce Final Report}
+\label{subsec:Produce Final Report}
+
+\noindent
+The final report consolidates all six CRISP-DM phases into a single document, presenting the complete project narrative from business understanding through deployment planning. The report includes all deliverables produced during the project: project scope, data description, data preparation rationale, model descriptions and parameter settings, evaluation results, and the deployment plan outlined in this phase. The report concludes with a summary of lessons learned and recommendations for future work, as documented in Phase~5 (Reviewing the Process and Determining Next Steps).
+
+\subsection{Review Project}
+\label{subsec:Review Project}
+
+\noindent
+A retrospective review of the project was conducted to assess the overall experience and identify areas for improvement in future data science projects.
+
+\subsubsection{What Went Well}
+\vspace{-9pt}
+\begin{itemize}[itemsep=-9pt]
+    \item The CRISP-DM framework provided a clear, structured path through a complex analytical task, preventing scope creep and ensuring no major step was skipped.
+    \item The Kaggle Craigslist dataset, despite its quality issues, contained sufficient breadth (all 50 states, 12 property types) and depth (384,977 records, 18 features) to support the research objectives after filtering.
+    \item Tree-based ensemble models proved well-suited to the mixed data types, handling both numeric features and target-encoded categoricals effectively without manual normalization.
+    \item Region-sensitive preprocessing (per-region IQR filtering, location clustering) produced consistently better results than global approaches, confirming that local market structure matters.
+\end{itemize}
+
+\subsubsection{What Could Be Improved}
+\vspace{-9pt}
+\begin{itemize}[itemsep=-9pt]
+    \item \textbf{Earlier documentation:} Several decisions made during data preparation and modeling were not documented in real time, requiring retrospective reconstruction. Future projects should document decisions as they are made.
+    \item \textbf{Scope management:} The initial scope was broad (ranking amenity importance), but the results showed that amenities are secondary to location and size. Narrowing the research questions earlier could have focused effort on higher-impact analysis.
+    \item \textbf{Time allocation:} The modeling phase consumed disproportionate time relative to business understanding and deployment planning. A more balanced distribution across CRISP-DM phases would produce a more complete project.
+    \item \textbf{Tooling consistency:} Switching between Jupyter Notebook and standalone Python scripts created versioning challenges. Using a single environment with source control from the start would improve reproducibility.
+\end{itemize}
+
+\subsubsection{Team Experience}
+\noindent
+As a solo data scientist on this project, every phase was executed from research, coding, and documentation. While the breadth of work was challenging, the end-to-end experience of moving from a raw Kaggle CSV through to a deployable model provided a comprehensive understanding of the CRISP-DM lifecycle that would be difficult to gain by working on a single phase of a team project.
