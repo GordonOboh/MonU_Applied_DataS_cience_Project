@@ -25,7 +25,7 @@ HistGradientBoostingRegressor was chosen over standard GradientBoostingRegressor
 The test design uses an 80/20 train-test split applied before any clustering or encoding to prevent data leakage. The final training matrix contains 113,682 rows with 16 features, and the test set contains 28,421 rows.
 
 \noindent
-The evaluation metrics used are: MAE, MSE, RMSE, R\textsuperscript{2}, ASE, SSE, and Observed Average. The visualisation outputs used for model assessment include: feature-importance plots, observed-versus-predicted plots, and iteration plots showing ASE versus the number of trees. \\
+The evaluation metrics used are: MAE, MSE, RMSE, R\textsuperscript{2}, ASE, SSE, and Observed Average. These metrics were selected because each captures a distinct aspect of model performance relevant to rental price prediction: MAE (Mean Absolute Error) reports the average dollar error in intuitive units; RMSE (Root Mean Squared Error) penalises large errors more heavily, which is important because a model that occasionally predicts \$500 off is far less useful than one with consistent small errors; R\textsuperscript{2} measures the proportion of variance explained, providing a scale-independent assessment of fit; ASE (Average Squared Error) and SSE (Sum of Squared Errors) support training curves (ASE vs.\ number of trees) that diagnose overfitting; and Observed Average establishes a baseline for interpreting absolute error magnitudes. The visualisation outputs used for model assessment include: feature-importance plots, observed-versus-predicted plots, and iteration plots showing ASE versus the number of trees. \\
 \noindent
 A fair comparison between the candidate models is supported by applying the same train-test split and reviewing the same metric set across all models.
 
@@ -345,6 +345,16 @@ laundry\_options & — & — & 4 \\
         \label{fig:OvP_XGB}
     \end{subfigure}
 \end{figure}
+
+\subsubsection{Final Model Assessment}
+\noindent
+Based on the results presented above, Random Forest is the recommended model for this project. It achieves the highest R\textsuperscript{2} (0.946), the lowest MAE (\$35.58), and the lowest RMSE (\$77.32) of the three candidates. Its performance advantage is consistent across all evaluated metrics, and its feature importance rankings align with those of the other models, confirming that the underlying patterns learned are not an artifact of a single algorithm.
+
+\noindent
+XGBoost ranks second overall (R\textsuperscript{2} = 0.939) and could be considered in scenarios where faster inference or smaller model size is prioritized. HistGradientBoosting, while the weakest performer (R\textsuperscript{2} = 0.934), still produces usable predictions and would be a reasonable fallback if Random Forest proved too memory-intensive for a target deployment environment.
+
+\noindent
+All three models agree that \texttt{location\_cluster} is the single most important predictor and that geographic features dominate the feature importance rankings. This consensus strengthens confidence in the business conclusion that location drives rental price far more than any individual amenity.
 
 \vspace{150pt}
 \textcolor{white}{.}

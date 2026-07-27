@@ -16,7 +16,9 @@ The dataset was obtained from \href{https://www.kaggle.com/datasets/austinreese/
 
 \subsubsection{Data Requirements}
 \noindent
-The project required a dataset of US rental housing listings containing: the listing price as the target variable, physical attributes (square footage, bedrooms, bathrooms), amenity flags (pets, smoking, wheelchair access, EV charging, furnished), property type, and geographic identifiers (state, region, latitude, longitude). The data needed to include Southern US states and apartments specifically (the project scope). The selected dataset exceeds these requirements: it covers all 50 states and 12 property types, providing ample records for the Southern-apartment subset.
+The project required a dataset of US rental housing listings containing: the listing price as the target variable, physical attributes (square footage, bedrooms, bathrooms), amenity flags (pets, smoking, wheelchair access, EV charging, furnished), property type, and geographic identifiers (state, region, latitude, longitude). The data needed to include Southern US states and apartments specifically (the project scope).
+
+The target of approximately 100,000+ records was determined by considering the requirements of tree-based regression models. With roughly 15--20 candidate features (physical attributes, amenity flags, geographic identifiers), a rule-of-thumb of 5,000--10,000 records per feature for stable ensemble training suggested a minimum of 75,000--200,000 records. The 100K target sits comfortably within this range and ensures sufficient data for an 80/20 train-test split without starving the training partition. The selected Kaggle dataset (384,977 raw rows) exceeds this requirement even after filtering to the Southern-apartment scope, providing ample records for the subset.
 
 \subsubsection{Selection Criteria and Data Availability}
 \noindent
@@ -164,7 +166,7 @@ Price and square footage are heavily right-skewed, with the vast majority of lis
 
 \subsubsection{Categorical Distributions}
 \noindent
-Pie charts for the six binary amenity flags and two multi-class categoricals are shown in Figure~\ref{fig:pie}. Pet and smoking policies skew permissive: 72.7\% of listings allow cats, 70.8\% allow dogs, and 73.2\% allow smoking. Wheelchair access (8.2\%), EV charging (1.3\%), and furnished units (4.8\%) are minority classes. Laundry and parking options show meaningful class imbalance: the most common laundry arrangement (``w/d in unit'') and parking type (``off-street parking'') each account for a plurality of listings, with ``Not Specified'' representing a substantial share in both.
+Pie charts for the six binary amenity flags and two multi-class categoricals are shown in Figure~\ref{fig:pie}. The proportions below are derived from \texttt{df.describe()} applied to the binary columns of the full 384,977-row dataset: pandas computes the mean of a 0/1 binary column as the fraction of rows equal to 1, directly giving the percentage of listings where the amenity is present. Pet and smoking policies skew permissive: 72.7\% of listings allow cats, 70.8\% allow dogs, and 73.2\% allow smoking. Wheelchair access (8.2\%), EV charging (1.3\%), and furnished units (4.8\%) are minority classes. Laundry and parking options show meaningful class imbalance: the most common laundry arrangement (``w/d in unit'') and parking type (``off-street parking'') each account for a plurality of listings, with ``Not Specified'' representing a substantial share in both.
 
 \begin{figure}[H]
     \centering
@@ -236,7 +238,7 @@ Pie charts for the six binary amenity flags and two multi-class categoricals are
 
 \subsubsection{Correlation Analysis}
 \noindent
-Pearson and Spearman correlation heatmaps (Figure~\ref{fig:heatmap}) were computed to assess linear and monotonic relationships between each feature and price. Region shows the strongest correlation with price (Pearson $r \approx 0.79$, Spearman $\rho \approx 0.75$), confirming that geographic location is the dominant price driver. State follows (Pearson $r \approx 0.62$, Spearman $\rho \approx 0.61$). Latitude and longitude show negligible linear correlation but a modest Spearman rank correlation, suggesting a non-linear geographic component to pricing.
+Pearson and Spearman correlation heatmaps (Figure~\ref{fig:heatmap}) were computed using \texttt{df.corr(method='pearson')} and \texttt{df.corr(method='spearman')} in pandas, comparing every numeric and target-encoded feature against \texttt{price}. The values reported are the correlation coefficients extracted from the resulting matrices for each feature pair. Region shows the strongest correlation with price (Pearson $r \approx 0.79$, Spearman $\rho \approx 0.75$), confirming that geographic location is the dominant price driver. State follows (Pearson $r \approx 0.62$, Spearman $\rho \approx 0.61$). Latitude and longitude show negligible linear correlation but a modest Spearman rank correlation, suggesting a non-linear geographic component to pricing.
 
 \begin{figure}[h!]
     \centering

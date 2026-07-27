@@ -5,7 +5,39 @@
 \subsection{Selecting Data}
 \label{subsec:Selecting Data}
 \noindent
-The following variables were reviewed individually for inclusion or exclusion based on their potential to contribute to apartment rental price prediction.
+The following variables were reviewed individually for inclusion or exclusion based on their potential to contribute to apartment rental price prediction. Each variable is evaluated on its type (numeric, binary, multi-class categorical, text, geographic) and its expected predictive signal for the regression task.
+
+\begin{table}[h!]
+    \centering
+    \small
+    \begin{tabular}{||p{3cm}|p{2cm}|p{3cm}|p{6.5cm}||}
+    \hline
+    \hline
+        Variable & Type & Levels / Range & Justification \\
+    \hline
+    \hline
+        price & numeric (float) & 0 -- \$2.77B & Target variable \\
+        sqfeet & numeric (int) & 0 -- 8.39M & Physical size drives rent \\
+        beds & numeric (int) & 0 -- 1,100 & Core unit descriptor \\
+        baths & numeric (float) & 0 -- 75 & Core unit descriptor \\
+        cats\_allowed & binary (int) & 0/1 & Amenity flag for business goal \\
+        dogs\_allowed & binary (int) & 0/1 & Amenity flag for business goal \\
+        smoking\_allowed & binary (int) & 0/1 & Amenity flag for business goal \\
+        wheelchair\_access & binary (int) & 0/1 & Amenity flag for business goal \\
+        electric\_vehicle\_charge & binary (int) & 0/1 & Amenity flag for business goal \\
+        comes\_furnished & binary (int) & 0/1 & Amenity flag for business goal \\
+        laundry\_options & categorical (str) & 5 levels & Amenity relevant to research \\
+        parking\_options & categorical (str) & 7 levels & Amenity relevant to research \\
+        lat / long & numeric (float) & Geographic & Location cluster feature \\
+        state & categorical (str) & 51 & Scope filtering + per-state analysis \\
+        region & categorical (str) & 404 & Local market pricing signal \\
+        type & categorical (str) & 12 & Retained for filtering, then dropped \\
+    \hline
+    \hline
+    \end{tabular}
+    \caption{Data types and selection rationale for all retained variables}
+    \label{tab:data_selection}
+\end{table}
 
 \subsubsection{Kept Variables}
 
@@ -61,9 +93,9 @@ The following variables were reviewed individually for inclusion or exclusion ba
 \subsection{Cleaning Data}
 \label{subsec:Cleaning Data}
 \noindent
-Records with \texttt{price} $< 1$ were removed. A rental price of \$0 or below is economically impossible and indicates a data entry error (missing data coded as zero, a placeholder, or a test listing). The threshold of \$1 is intentionally conservative: it removes only provably invalid entries rather than merely inexpensive units.
+Records with \texttt{price} $< 1$ were removed. A rental price of \$0 or below is economically impossible and indicates a data entry error (missing data coded as zero, a placeholder, or a test listing). The threshold of \$1 is justified by examining the price distribution: the 1st percentile of apartment listings is approximately \$400, meaning that values below \$1 are not merely inexpensive but physically impossible as real transactions. This conservative cutoff removes only provably invalid entries (1,307 records, 0.34\% of data) rather than merely inexpensive units.
 
-Records with \texttt{sqfeet} $< 70$ were removed. Seventy square feet is roughly the size of a parking space, far below the minimum size of even the smallest legal studio or micro-unit (typically 150--300 sq ft). Values below this threshold are likely typos (e.g., 750 entered as 75) or unit conversion errors. Again, the cutoff is deliberately loose to avoid discarding valid small apartments.
+Records with \texttt{sqfeet} $< 70$ were removed. Seventy square feet is roughly the size of a parking space (standard parking space is 8.5 ft $\times$ 18 ft = 153 sq ft), far below the minimum size of even the smallest legal studio or micro-unit (typically 150--300 sq ft). Examining the distribution: the 1st percentile of square footage for apartments is approximately 450 sq ft, confirming that values below 70 sq ft are not compact units but data-entry errors (e.g., 750 entered as 75) or unit conversion mistakes. The cutoff is deliberately loose (70 sq ft, well below the smallest habitable unit) to avoid discarding valid small apartments while still removing physically impossible records (48 records, 0.01\% of data).
 
 These are the only range-based filters applied at this stage. Additional outlier treatment (IQR-based, by region) is applied separately in Section~3.2 to handle extreme price values without conflating impossible values with merely unusual ones. Listing-level duplicate checks confirmed zero duplicate rows in the dataset.
 
@@ -84,7 +116,7 @@ The first map displays the complete raw dataset: listings span the entire contin
 
 \begin{figure}[h!]
     \centering
-    \caption{Housing Listing Locations}
+    \caption{Geographic distribution of housing listings before and after scope filtering. The left panel shows the raw dataset covering all 50 US states plus Alaska and Hawaii. The right panel shows listings restricted to Southern US apartment rentals only.}
     \label{fig:Housing_Listing_Locations}
     \begin{minipage}{0.5\textwidth}
         \centering
